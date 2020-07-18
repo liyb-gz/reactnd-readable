@@ -1,8 +1,6 @@
 import React, { ReactNode } from 'react';
-
 import { Drawer, makeStyles, createStyles, Toolbar } from '@material-ui/core';
-
-const drawerWidth = 240;
+import { drawerWidth } from '../utils/constants';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -30,7 +28,6 @@ const Sidebar = ({ children }: Props) => {
         paper: classes.drawerPaper,
       }}
     >
-      <Toolbar />
       {children}
     </Drawer>
   );

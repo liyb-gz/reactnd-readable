@@ -9,13 +9,19 @@ import {
   IconButton,
   Hidden,
 } from '@material-ui/core';
-
 import * as Icon from 'react-feather';
+import { drawerWidth } from '../utils/constants';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    // appBar: {
+    //   zIndex: theme.zIndex.drawer + 1,
+    // },
     appBar: {
-      zIndex: theme.zIndex.drawer + 1,
+      [theme.breakpoints.up('md')]: {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: drawerWidth,
+      },
     },
     menuButton: {
       marginRight: theme.spacing(2),

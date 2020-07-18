@@ -6,17 +6,18 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Box,
 } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 
-import { Inbox as InboxIcon, Mail as MailIcon } from '@material-ui/icons';
 import * as Icon from 'react-feather';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     drawerContainer: {
       overflow: 'auto',
     },
+    logo: { width: '100%', padding: theme.spacing(2) },
   })
 );
 
@@ -26,6 +27,9 @@ const SidebarMenu = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.drawerContainer}>
+      <Box>
+        <img src="/logo.svg" className={classes.logo} />
+      </Box>
       <List>
         <ListItem
           button
