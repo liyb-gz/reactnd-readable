@@ -31,7 +31,7 @@ const Topbar = () => {
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
         <Typography variant="h6" noWrap>
-          Clipped drawer
+          Readable
         </Typography>
       </Toolbar>
     </AppBar>

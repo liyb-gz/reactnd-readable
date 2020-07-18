@@ -4,13 +4,13 @@ import {
   createStyles,
   Theme,
   CssBaseline,
-  Toolbar,
   Typography,
 } from '@material-ui/core';
 
-import Topbar from './features/Topbar/Topbar';
-import Sidebar from './features/Sidebar/Sidebar';
-import Main from './features/Main/Main';
+import Topbar from './layout/Topbar';
+import Sidebar from './layout/Sidebar';
+import Main from './layout/Main';
+import SidebarMenu from './features/Menu/SidebarMenu';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,7 +31,9 @@ const App = () => {
     <div className={classes.root}>
       <CssBaseline />
       <Topbar />
-      <Sidebar />
+      <Sidebar>
+        <SidebarMenu />
+      </Sidebar>
       <Main>
         <div>
           <Typography paragraph>
