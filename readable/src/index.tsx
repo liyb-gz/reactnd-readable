@@ -6,16 +6,19 @@ import { store } from './store/store';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@material-ui/core';
 import 'fontsource-lato';
+import { BrowserRouter as Router } from 'react-router-dom';
 import theme from './themes/theme';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </ThemeProvider>
+    <Router>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </ThemeProvider>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -7,6 +7,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@material-ui/core';
+import { NavLink } from 'react-router-dom';
 
 import { Inbox as InboxIcon, Mail as MailIcon } from '@material-ui/icons';
 import * as Icon from 'react-feather';
@@ -26,20 +27,52 @@ const SidebarMenu = (props: Props) => {
   return (
     <div className={classes.drawerContainer}>
       <List>
-        <ListItem button>
+        <ListItem
+          button
+          component={NavLink}
+          activeClassName="Mui-selected"
+          exact
+          to="/"
+        >
           <ListItemIcon>
             <Icon.Home size={20} />
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem
+          button
+          component={NavLink}
+          activeClassName="Mui-selected"
+          to="/categories"
+        >
+          <ListItemIcon>
+            <Icon.Grid size={20} />
+          </ListItemIcon>
+          <ListItemText primary="Categories" />
+        </ListItem>
+        <ListItem
+          button
+          component={NavLink}
+          activeClassName="Mui-selected"
+          exact
+          to="/post"
+        >
+          <ListItemIcon>
+            <Icon.FileText size={20} />
+          </ListItemIcon>
+          <ListItemText primary="Post" />
+        </ListItem>
+        <ListItem
+          button
+          component={NavLink}
+          activeClassName="Mui-selected"
+          to="/post/new"
+        >
+          <ListItemIcon>
+            <Icon.FilePlus size={20} />
+          </ListItemIcon>
+          <ListItemText primary="New Post" />
+        </ListItem>
       </List>
     </div>
   );
