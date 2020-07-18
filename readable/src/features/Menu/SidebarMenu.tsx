@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 
 import { Inbox as InboxIcon, Mail as MailIcon } from '@material-ui/icons';
+import * as Icon from 'react-feather';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -25,6 +26,12 @@ const SidebarMenu = (props: Props) => {
   return (
     <div className={classes.drawerContainer}>
       <List>
+        <ListItem button>
+          <ListItemIcon>
+            <Icon.Home size={20} />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
+        </ListItem>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
