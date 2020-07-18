@@ -7,9 +7,9 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import Topbar from './layout/Topbar';
-import Sidebar from './layout/Sidebar';
-import Main from './layout/Main';
+import Topbar from './layouts/Topbar';
+import Sidebar from './layouts/Sidebar';
+import Main from './layouts/Main';
 import SidebarMenu from './features/Menu/SidebarMenu';
 
 const useStyles = makeStyles((theme: Theme) =>
