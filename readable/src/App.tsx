@@ -16,6 +16,7 @@ import Home from './containers/Home';
 import Categories from './containers/Categories';
 import Post from './containers/Post';
 import AddPost from './containers/AddPost';
+import Logo from './features/Logo/Logo';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,6 +38,7 @@ const App = () => {
       <CssBaseline />
       <Topbar />
       <Sidebar>
+        <Logo />
         <SidebarMenu />
       </Sidebar>
       <Main>

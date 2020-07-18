@@ -1,11 +1,5 @@
 import React, { ReactNode } from 'react';
-import {
-  Drawer,
-  makeStyles,
-  createStyles,
-  Toolbar,
-  Hidden,
-} from '@material-ui/core';
+import { Drawer, makeStyles, createStyles, Hidden } from '@material-ui/core';
 import { drawerWidth } from '../utils/constants';
 
 const useStyles = makeStyles(() =>
