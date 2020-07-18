@@ -28,7 +28,7 @@ const SidebarMenu = (props: Props) => {
   return (
     <div className={classes.drawerContainer}>
       <Box>
-        <img src="/logo.svg" className={classes.logo} />
+        <img src="/logo.svg" className={classes.logo} alt="Readable logo" />
       </Box>
       <List>
         <ListItem

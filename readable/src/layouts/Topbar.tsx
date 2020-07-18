@@ -8,6 +8,7 @@ import {
   createStyles,
   IconButton,
   Hidden,
+  Box,
 } from '@material-ui/core';
 import * as Icon from 'react-feather';
 import { drawerWidth } from '../utils/constants';
@@ -24,7 +25,12 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     menuButton: {
-      marginRight: theme.spacing(2),
+      marginRight: theme.spacing(1),
+    },
+    logo: {
+      height: '100%',
+      maxHeight: theme.mixins.toolbar.minHeight || 56 - theme.spacing(1),
+      padding: theme.spacing(1),
     },
   })
 );
@@ -44,9 +50,13 @@ const Topbar = () => {
           >
             <Icon.Menu size={20} />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            Readable
-          </Typography>
+          <Box>
+            <img
+              src="/logo-inverted.svg"
+              alt="Readable logo"
+              className={classes.logo}
+            />
+          </Box>
         </Toolbar>
       </AppBar>
     </Hidden>
