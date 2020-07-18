@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="702px" height="269px" viewBox="0 0 702 269" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Readable-inverted</title>
+    <g id="Readable-inverted" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group">
+            <circle id="Oval" fill="#FFFFFF" cx="134.5" cy="134.5" r="134.5"></circle>
+            <text id="Readable" font-family="SnellRoundhand-Bold, Snell Roundhand" font-size="180" font-weight="bold">
+                <tspan x="22" y="211" fill="#D96666">Re</tspan>
+                <tspan x="258.52" y="211" font-family="SnellRoundhand, Snell Roundhand" font-weight="normal" fill="#FFFFFF">adable</tspan>
+            </text>
+        </g>
+    </g>
+</svg>
