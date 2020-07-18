@@ -1,5 +1,11 @@
 import React, { ReactNode } from 'react';
-import { Drawer, makeStyles, createStyles, Toolbar } from '@material-ui/core';
+import {
+  Drawer,
+  makeStyles,
+  createStyles,
+  Toolbar,
+  Hidden,
+} from '@material-ui/core';
 import { drawerWidth } from '../utils/constants';
 
 const useStyles = makeStyles(() =>
@@ -21,15 +27,30 @@ interface Props {
 const Sidebar = ({ children }: Props) => {
   const classes = useStyles();
   return (
-    <Drawer
-      className={classes.drawer}
-      variant="permanent"
-      classes={{
-        paper: classes.drawerPaper,
-      }}
-    >
-      {children}
-    </Drawer>
+    <>
+      <Hidden smDown>
+        <Drawer
+          className={classes.drawer}
+          variant="permanent"
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          {children}
+        </Drawer>
+      </Hidden>
+      <Hidden mdUp>
+        <Drawer
+          className={classes.drawer}
+          variant="temporary"
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          {children}
+        </Drawer>
+      </Hidden>
+    </>
   );
 };
 

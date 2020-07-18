@@ -34,9 +34,9 @@ interface Props {}
 const Topbar = () => {
   const classes = useStyles();
   return (
-    <AppBar position="fixed" className={classes.appBar}>
-      <Toolbar>
-        <Hidden mdUp>
+    <Hidden mdUp>
+      <AppBar position="fixed" className={classes.appBar}>
+        <Toolbar>
           <IconButton
             edge="start"
             color="inherit"
@@ -44,12 +44,12 @@ const Topbar = () => {
           >
             <Icon.Menu size={20} />
           </IconButton>
-        </Hidden>
-        <Typography variant="h6" noWrap>
-          Readable
-        </Typography>
-      </Toolbar>
-    </AppBar>
+          <Typography variant="h6" noWrap>
+            Readable
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </Hidden>
   );
 };
 

@@ -1,5 +1,11 @@
 import React, { ReactNode } from 'react';
-import { makeStyles, Theme, createStyles, Toolbar } from '@material-ui/core';
+import {
+  makeStyles,
+  Theme,
+  createStyles,
+  Toolbar,
+  Hidden,
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,7 +27,9 @@ const Main = ({ children }: Props) => {
   const classes = useStyles();
   return (
     <main className={classes.content}>
-      <Toolbar />
+      <Hidden mdUp>
+        <Toolbar />
+      </Hidden>
       {children}
     </main>
   );
