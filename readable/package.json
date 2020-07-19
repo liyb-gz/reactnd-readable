@@ -16,6 +16,7 @@
     "@types/react-redux": "^7.1.7",
     "@types/react-router-dom": "^5.1.5",
     "fontsource-lato": "^2.1.4",
+    "fontsource-playfair-display": "^2.1.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-feather": "^2.0.8",

@@ -6,7 +6,6 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Box,
 } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 
@@ -18,6 +17,23 @@ const useStyles = makeStyles((theme) =>
       overflow: 'auto',
     },
     logo: { width: '100%', padding: theme.spacing(2) },
+    active: {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.primary.contrastText,
+
+      '& .MuiListItemIcon-root': {
+        color: theme.palette.primary.contrastText,
+      },
+
+      '&:hover': {
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.primary.contrastText,
+
+        '& .MuiListItemIcon-root': {
+          color: theme.palette.primary.contrastText,
+        },
+      },
+    },
   })
 );
 
@@ -31,7 +47,7 @@ const SidebarMenu = (props: Props) => {
         <ListItem
           button
           component={NavLink}
-          activeClassName="Mui-selected"
+          activeClassName={classes.active}
           exact
           to="/"
         >
@@ -43,7 +59,7 @@ const SidebarMenu = (props: Props) => {
         <ListItem
           button
           component={NavLink}
-          activeClassName="Mui-selected"
+          activeClassName={classes.active}
           to="/categories"
         >
           <ListItemIcon>
@@ -54,7 +70,7 @@ const SidebarMenu = (props: Props) => {
         <ListItem
           button
           component={NavLink}
-          activeClassName="Mui-selected"
+          activeClassName={classes.active}
           exact
           to="/post"
         >
@@ -66,7 +82,7 @@ const SidebarMenu = (props: Props) => {
         <ListItem
           button
           component={NavLink}
-          activeClassName="Mui-selected"
+          activeClassName={classes.active}
           to="/post/new"
         >
           <ListItemIcon>

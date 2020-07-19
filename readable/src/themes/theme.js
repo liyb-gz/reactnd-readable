@@ -2,16 +2,26 @@ import { createMuiTheme } from '@material-ui/core';
 
 const theme = createMuiTheme({
   typography: {
+    // Sans-serif
+    // fontFamily: [
+    //   '"Open Sans Condensed"',
+    //   'Lato',
+    //   '"Helvetica Neue"',
+    //   'Arial',
+    //   'sans-serif',
+    //   '"Apple Color Emoji"',
+    //   '"Segoe UI Emoji"',
+    //   '"Segoe UI Symbol"',
+    // ].join(','),
+
+    // Serif
     fontFamily: [
-      '"Open Sans Condensed"',
-      'Lato',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
+      '"Playfair Display"',
+      '"Times New Roman"',
+      'Times',
+      'serif',
     ].join(','),
+    fontSize: 16,
   },
   palette: {
     primary: {

@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import { store } from './store/store';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@material-ui/core';
-import 'fontsource-lato';
+import 'fontsource-playfair-display';
 import { BrowserRouter as Router } from 'react-router-dom';
 import theme from './themes/theme';
 import * as serviceWorker from './serviceWorker';
