@@ -17,27 +17,35 @@ const sansSerifFonts = [
   '"Segoe UI Symbol"',
 ].join(',');
 
+const defaultTheme = createMuiTheme();
+
 const theme = createMuiTheme({
   typography: {
     fontFamily: sansSerifFonts,
     fontSize: 16,
     h1: {
       fontFamily: serifFonts,
+      fontWeight: defaultTheme.typography.fontWeightBold,
     },
     h2: {
       fontFamily: serifFonts,
+      fontWeight: defaultTheme.typography.fontWeightBold,
     },
     h3: {
       fontFamily: serifFonts,
+      fontWeight: defaultTheme.typography.fontWeightBold,
     },
     h4: {
       fontFamily: serifFonts,
+      fontWeight: defaultTheme.typography.fontWeightBold,
     },
     h5: {
       fontFamily: serifFonts,
+      fontWeight: defaultTheme.typography.fontWeightBold,
     },
     h6: {
       fontFamily: serifFonts,
+      fontWeight: defaultTheme.typography.fontWeightBold,
     },
   },
   palette: {
@@ -61,6 +69,15 @@ const theme = createMuiTheme({
       },
       secondary: {
         fontFamily: serifFonts,
+      },
+    },
+    MuiCardHeader: {
+      title: {
+        fontSize: defaultTheme.typography.h4.fontSize,
+        fontWeight: defaultTheme.typography.fontWeightBold,
+      },
+      subheader: {
+        fontSize: defaultTheme.typography.body2.fontSize,
       },
     },
   },

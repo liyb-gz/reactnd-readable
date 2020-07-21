@@ -42,7 +42,7 @@ const Home = (props: Props) => {
   const classes = useStyles();
   return (
     <div>
-      <Typography variant="h1">Home</Typography>
+      <Typography variant="h2">Home</Typography>
       <Grid
         container
         direction="row"
