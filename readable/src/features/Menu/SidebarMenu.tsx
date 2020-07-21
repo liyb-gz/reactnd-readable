@@ -10,6 +10,8 @@ import {
 import { NavLink } from 'react-router-dom';
 
 import * as Icon from 'react-feather';
+import { useDispatch } from 'react-redux';
+import { setIsMobileMenuOpen } from '../../store/uiSlice';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -39,13 +41,16 @@ const useStyles = makeStyles((theme) =>
 
 interface Props {}
 
-const SidebarMenu = (props: Props) => {
+const SidebarMenu = () => {
+  const dispatch = useDispatch();
+  const closeMobileMenu = () => dispatch(setIsMobileMenuOpen(false));
   const classes = useStyles();
   return (
     <div className={classes.drawerContainer}>
       <List>
         <ListItem
           button
+          onClick={closeMobileMenu}
           component={NavLink}
           activeClassName={classes.active}
           exact
@@ -58,6 +63,7 @@ const SidebarMenu = (props: Props) => {
         </ListItem>
         <ListItem
           button
+          onClick={closeMobileMenu}
           component={NavLink}
           activeClassName={classes.active}
           to="/categories"
@@ -69,6 +75,7 @@ const SidebarMenu = (props: Props) => {
         </ListItem>
         <ListItem
           button
+          onClick={closeMobileMenu}
           component={NavLink}
           activeClassName={classes.active}
           exact
@@ -81,6 +88,7 @@ const SidebarMenu = (props: Props) => {
         </ListItem>
         <ListItem
           button
+          onClick={closeMobileMenu}
           component={NavLink}
           activeClassName={classes.active}
           to="/post/new"
