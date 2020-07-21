@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   makeStyles,
   createStyles,
@@ -6,30 +6,31 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-} from '@material-ui/core';
-import { NavLink } from 'react-router-dom';
+  Divider,
+} from "@material-ui/core";
+import { NavLink } from "react-router-dom";
 
-import * as Icon from 'react-feather';
+import * as Icon from "react-feather";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     drawerContainer: {
-      overflow: 'auto',
+      overflow: "auto",
     },
-    logo: { width: '100%', padding: theme.spacing(2) },
+    logo: { width: "100%", padding: theme.spacing(2) },
     active: {
       backgroundColor: theme.palette.primary.main,
       color: theme.palette.primary.contrastText,
 
-      '& .MuiListItemIcon-root': {
+      "& .MuiListItemIcon-root": {
         color: theme.palette.primary.contrastText,
       },
 
-      '&:hover': {
+      "&:hover": {
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.primary.contrastText,
 
-        '& .MuiListItemIcon-root': {
+        "& .MuiListItemIcon-root": {
           color: theme.palette.primary.contrastText,
         },
       },
@@ -89,6 +90,15 @@ const SidebarMenu = (props: Props) => {
             <Icon.FilePlus size={20} />
           </ListItemIcon>
           <ListItemText primary="New Post" />
+        </ListItem>
+      </List>
+      <Divider />
+      <List>
+        <ListItem button>
+          <ListItemIcon>
+            <Icon.LogOut size={20} />
+          </ListItemIcon>
+          <ListItemText primary="Log out" />
         </ListItem>
       </List>
     </div>
