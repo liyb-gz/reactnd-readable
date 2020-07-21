@@ -11,7 +11,7 @@ import { NavLink } from 'react-router-dom';
 
 import * as Icon from 'react-feather';
 import { useDispatch } from 'react-redux';
-import { setIsMobileMenuOpen } from '../../store/uiSlice';
+import { setIsMobileMenuOpen } from '../store/uiSlice';
 
 const useStyles = makeStyles((theme) =>
   createStyles({

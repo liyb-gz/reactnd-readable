@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 
 import * as Icon from 'react-feather';
-import PostCard from '../features/PostCard/PostCard';
+import PostCard from '../features/PostCard';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

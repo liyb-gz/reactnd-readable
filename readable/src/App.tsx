@@ -10,12 +10,12 @@ import { Switch, Route } from 'react-router-dom';
 import Topbar from './layouts/Topbar';
 import Sidebar from './layouts/Sidebar';
 import Main from './layouts/Main';
-import SidebarMenu from './features/Menu/SidebarMenu';
+import SidebarMenu from './features/SidebarMenu';
 import Home from './containers/Home';
 import Categories from './containers/Categories';
 import Post from './containers/Post';
 import AddPost from './containers/AddPost';
-import Logo from './features/Logo/Logo';
+import Logo from './features/Logo';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
