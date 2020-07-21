@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
   Chip,
@@ -6,31 +6,31 @@ import {
   Theme,
   createStyles,
   Grid,
-  CardHeader,
-  Card,
-  CardContent,
-  Typography,
-  CardActions,
-  Button,
-  Switch,
   IconButton,
-} from '@material-ui/core';
+} from "@material-ui/core";
 
-import * as Icon from 'react-feather';
+import * as Icon from "react-feather";
+import PostCard from "../features/PostCard/PostCard";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     chips: {
-      display: 'flex',
-      justifyContent: 'flex-start',
-      flexWrap: 'wrap',
-      '& > *': {
+      display: "flex",
+      justifyContent: "flex-start",
+      flexWrap: "wrap",
+      "& > *": {
         margin: theme.spacing(1),
       },
+      "& > *:first-child": {
+        marginLeft: 0,
+      },
+    },
+    cards: {
+      marginTop: theme.spacing(4),
     },
     controlBar: {
-      display: 'flex',
-      justifyItems: 'space-between',
+      display: "flex",
+      justifyItems: "space-between",
     },
   })
 );
@@ -64,22 +64,38 @@ const Home = (props: Props) => {
           </IconButton>
         </Grid>
       </Grid>
-      <Grid container>
+      <Grid container spacing={3} className={classes.cards}>
         <Grid item xs={12} sm={6} md={4}>
-          <Card>
-            <CardHeader title="Post Title" subheader="14 July at 09:57 " />
-            <CardContent>
-              <Typography component="p">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
-                sed tenetur iure dignissimos deserunt placeat ipsa dolore quo.
-                Maxime nam iste sunt libero possimus blanditiis in. Non
-                voluptates culpa placeat.
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button color="primary">Action</Button>
-            </CardActions>
-          </Card>
+          <PostCard
+            title="Post Title"
+            timestamp={1595331703845}
+            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam sed tenetur iure dignissimos deserunt placeat ipsa dolore quo. Maxime nam iste sunt libero possimus blanditiis in. Non voluptates culpa placeat."
+            id="1"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <PostCard
+            title="Post Title"
+            timestamp={1595331703845}
+            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam sed tenetur iure dignissimos deserunt placeat ipsa dolore quo. Maxime nam iste sunt libero possimus blanditiis in. Non voluptates culpa placeat."
+            id="1"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <PostCard
+            title="Post Title"
+            timestamp={1595331703845}
+            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam sed tenetur iure dignissimos deserunt placeat ipsa dolore quo. Maxime nam iste sunt libero possimus blanditiis in. Non voluptates culpa placeat."
+            id="1"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <PostCard
+            title="Post Title"
+            timestamp={1595331703845}
+            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam sed tenetur iure dignissimos deserunt placeat ipsa dolore quo. Maxime nam iste sunt libero possimus blanditiis in. Non voluptates culpa placeat."
+            id="1"
+          />
         </Grid>
       </Grid>
     </div>
