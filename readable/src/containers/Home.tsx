@@ -12,6 +12,7 @@ import {
 
 import * as Icon from 'react-feather';
 import PostCard from '../features/PostCard';
+import TogglePostDisplayButton from '../features/TogglePostDisplayButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,12 +58,7 @@ const Home = (props: Props) => {
           </Box>
         </Grid>
         <Grid item>
-          <IconButton>
-            <Icon.Grid size={20} />
-          </IconButton>
-          <IconButton>
-            <Icon.List size={20} />
-          </IconButton>
+          <TogglePostDisplayButton />
         </Grid>
       </Grid>
       <Grid container spacing={3} className={classes.cards}>
