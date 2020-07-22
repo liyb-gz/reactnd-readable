@@ -29,11 +29,15 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const testPost: PostProps = {
-  title: 'Test Post',
-  description:
-    'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse ducimus incidunt illum exercitationem asperiores? Ullam, assumenda deserunt minus, omnis consequatur sunt nihil magnam quos in non nesciunt porro, aut rem?',
-  id: '4e932e34',
-  timestamp: 1595331503845,
+  id: '8xf0y6ziyjabvozdd253nd',
+  timestamp: 1467166872634,
+  title: 'Udacity is the best place to learn React',
+  body: 'Everyone says so after all.',
+  author: 'thingtwo',
+  category: 'react',
+  voteScore: 6,
+  deleted: false,
+  commentCount: 2,
 };
 
 const Categories = (props: PostProps) => {

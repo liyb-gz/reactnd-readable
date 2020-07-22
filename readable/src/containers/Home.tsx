@@ -13,6 +13,7 @@ import {
 import * as Icon from 'react-feather';
 import PostCard from '../features/PostCard';
 import TogglePostDisplayButton from '../features/TogglePostDisplayButton';
+import PostCardGrid from '../features/PostCardGrid';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -61,40 +62,7 @@ const Home = (props: Props) => {
           <TogglePostDisplayButton />
         </Grid>
       </Grid>
-      <Grid container spacing={3} className={classes.cards}>
-        <Grid item xs={12} sm={6} lg={4}>
-          <PostCard
-            title="Post Title"
-            timestamp={1595331703845}
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam sed tenetur iure dignissimos deserunt placeat ipsa dolore quo. Maxime nam iste sunt libero possimus blanditiis in. Non voluptates culpa placeat."
-            id="1"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} lg={4}>
-          <PostCard
-            title="Post Title"
-            timestamp={1595331703845}
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam sed tenetur iure dignissimos deserunt placeat ipsa dolore quo. Maxime nam iste sunt libero possimus blanditiis in. Non voluptates culpa placeat."
-            id="1"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} lg={4}>
-          <PostCard
-            title="Post Title"
-            timestamp={1595331703845}
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam sed tenetur iure dignissimos deserunt placeat ipsa dolore quo. Maxime nam iste sunt libero possimus blanditiis in. Non voluptates culpa placeat."
-            id="1"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} lg={4}>
-          <PostCard
-            title="Post Title"
-            timestamp={1595331703845}
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam sed tenetur iure dignissimos deserunt placeat ipsa dolore quo. Maxime nam iste sunt libero possimus blanditiis in. Non voluptates culpa placeat."
-            id="1"
-          />
-        </Grid>
-      </Grid>
+      <PostCardGrid />
     </div>
   );
 };

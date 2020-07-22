@@ -13,7 +13,7 @@ import { format } from 'date-fns';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    description: {
+    body: {
       color: theme.palette.text.primary,
       marginTop: theme.spacing(1),
     },
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const PostListItem = ({ id, title, timestamp, description }: PostProps) => {
+const PostListItem = ({ id, title, timestamp, body }: PostProps) => {
   const { push } = useHistory();
   const classes = useStyles();
   const date = format(new Date(timestamp), "d MMM y 'at' HH:mm");
@@ -36,10 +36,7 @@ const PostListItem = ({ id, title, timestamp, description }: PostProps) => {
   }, [id, push]);
   return (
     <ListItem divider button onClick={handleClick}>
-      <ListItemText
-        classes={{ secondary: classes.description }}
-        secondary={description}
-      >
+      <ListItemText classes={{ secondary: classes.body }} secondary={body}>
         <Typography variant="h4" component="span" className={classes.title}>
           {title}
         </Typography>

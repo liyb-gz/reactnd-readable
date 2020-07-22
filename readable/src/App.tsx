@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import {
   makeStyles,
   createStyles,
@@ -16,6 +16,10 @@ import Categories from './containers/Categories';
 import Post from './containers/Post';
 import AddPost from './containers/AddPost';
 import Logo from './features/Logo';
+import { useDispatch } from 'react-redux';
+import { store } from './store/store';
+import { fetchPosts } from './store/postSlice';
+import { testPosts } from './testData';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,6 +35,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const App = () => {
   const classes = useStyles();
+  const dispatch = useDispatch<typeof store.dispatch>();
+  const getAllPosts = useCallback(() => {
+    dispatch(fetchPosts(testPosts));
+  }, []);
+
+  useEffect(() => getAllPosts(), []);
 
   return (
     <div className={classes.root}>
