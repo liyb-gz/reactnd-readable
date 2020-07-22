@@ -17,6 +17,7 @@
     "@types/react-router-dom": "^5.1.5",
     "date-fns": "^2.15.0",
     "fontsource-lato": "^2.1.4",
+    "fontsource-open-sans": "^2.1.4",
     "fontsource-playfair-display": "^2.1.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

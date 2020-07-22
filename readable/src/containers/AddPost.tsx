@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   TextField,
   Grid,
@@ -6,12 +6,13 @@ import {
   Theme,
   createStyles,
   Button,
-} from "@material-ui/core";
+  Typography,
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     post: {
-      "& $formControl": {
+      '& $formControl': {
         marginTop: theme.spacing(2),
       },
     },
@@ -21,11 +22,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {}
 
-const AddPost = (props: Props) => {
+const AddPost = () => {
   const classes = useStyles();
   return (
     <div>
-      <h1>Add Post</h1>
+      <Typography variant="h2">Add Post</Typography>
       <Grid container>
         <Grid item xs={12}>
           <form className={classes.post}>

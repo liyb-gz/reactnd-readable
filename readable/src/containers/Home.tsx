@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Box,
   Chip,
@@ -7,21 +7,23 @@ import {
   createStyles,
   Grid,
   IconButton,
-} from "@material-ui/core";
+  Typography,
+} from '@material-ui/core';
 
-import * as Icon from "react-feather";
-import PostCard from "../features/PostCard/PostCard";
+import * as Icon from 'react-feather';
+import PostCard from '../features/PostCard';
+import TogglePostDisplayButton from '../features/TogglePostDisplayButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     chips: {
-      display: "flex",
-      justifyContent: "flex-start",
-      flexWrap: "wrap",
-      "& > *": {
+      display: 'flex',
+      justifyContent: 'flex-start',
+      flexWrap: 'wrap',
+      '& > *': {
         margin: theme.spacing(1),
       },
-      "& > *:first-child": {
+      '& > *:first-child': {
         marginLeft: 0,
       },
     },
@@ -29,8 +31,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(4),
     },
     controlBar: {
-      display: "flex",
-      justifyItems: "space-between",
+      display: 'flex',
+      justifyItems: 'space-between',
     },
   })
 );
@@ -41,7 +43,7 @@ const Home = (props: Props) => {
   const classes = useStyles();
   return (
     <div>
-      <h1>Home</h1>
+      <Typography variant="h2">Home</Typography>
       <Grid
         container
         direction="row"
@@ -56,16 +58,11 @@ const Home = (props: Props) => {
           </Box>
         </Grid>
         <Grid item>
-          <IconButton>
-            <Icon.Grid size={20} />
-          </IconButton>
-          <IconButton>
-            <Icon.List size={20} />
-          </IconButton>
+          <TogglePostDisplayButton />
         </Grid>
       </Grid>
       <Grid container spacing={3} className={classes.cards}>
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={6} lg={4}>
           <PostCard
             title="Post Title"
             timestamp={1595331703845}
@@ -73,7 +70,7 @@ const Home = (props: Props) => {
             id="1"
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={6} lg={4}>
           <PostCard
             title="Post Title"
             timestamp={1595331703845}
@@ -81,7 +78,7 @@ const Home = (props: Props) => {
             id="1"
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={6} lg={4}>
           <PostCard
             title="Post Title"
             timestamp={1595331703845}
@@ -89,7 +86,7 @@ const Home = (props: Props) => {
             id="1"
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={6} lg={4}>
           <PostCard
             title="Post Title"
             timestamp={1595331703845}

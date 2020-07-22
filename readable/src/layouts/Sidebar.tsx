@@ -1,6 +1,8 @@
 import React, { ReactNode } from 'react';
 import { Drawer, makeStyles, createStyles, Hidden } from '@material-ui/core';
 import { drawerWidth } from '../utils/constants';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectIsMobileMenuOpen, setIsMobileMenuOpen } from '../store/uiSlice';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -19,6 +21,9 @@ interface Props {
 }
 
 const Sidebar = ({ children }: Props) => {
+  const dispatch = useDispatch();
+  const closeMobileMenu = () => dispatch(setIsMobileMenuOpen(false));
+  const isMobileMenuOpen = useSelector(selectIsMobileMenuOpen);
   const classes = useStyles();
   return (
     <>
@@ -40,6 +45,8 @@ const Sidebar = ({ children }: Props) => {
           classes={{
             paper: classes.drawerPaper,
           }}
+          open={isMobileMenuOpen}
+          onClose={closeMobileMenu}
         >
           {children}
         </Drawer>

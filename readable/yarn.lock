@@ -4770,6 +4770,11 @@ fontsource-lato@^2.1.4:
   resolved "https://registry.yarnpkg.com/fontsource-lato/-/fontsource-lato-2.1.4.tgz#7eb84399bd59bf84193f7ee3f2a6c7e4531a4316"
   integrity sha512-SoJL4YDC/8RHQrLAM93jMM2wxbRhZSmDSIqxbOBC+0avgn0aQbyYjhOGDkUUGTOTM0/rsGW27SE0X8TfhuJl4w==
 
+fontsource-open-sans@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/fontsource-open-sans/-/fontsource-open-sans-2.1.4.tgz#4ac6879de536fa8b57b7625301b3c582ce454460"
+  integrity sha512-pVsDbODsewYVRDsFikGNvG+HK95+34bxE/59kGc39PsmR8v7nrVoeWOgE6M0MQDqvVUaCeqPdrEX78uj0F3zzA==
+
 fontsource-playfair-display@^2.1.4:
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/fontsource-playfair-display/-/fontsource-playfair-display-2.1.4.tgz#e55009a8281b2eefc30aeb4a855ce7042989eb83"

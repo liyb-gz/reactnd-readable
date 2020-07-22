@@ -11,6 +11,11 @@ import {
 } from '@material-ui/core';
 import * as Icon from 'react-feather';
 import { drawerWidth } from '../utils/constants';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  selectIsMobileMenuOpen,
+  toggleIsMobileMenuOpen,
+} from '../store/uiSlice';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,6 +43,11 @@ interface Props {}
 
 const Topbar = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const isMobileMenuOpen = useSelector(selectIsMobileMenuOpen);
+  const toggleIsMobileMenuOpenAction = () => {
+    dispatch(toggleIsMobileMenuOpen());
+  };
   return (
     <Hidden mdUp>
       <AppBar position="fixed" className={classes.appBar}>
@@ -46,8 +56,9 @@ const Topbar = () => {
             edge="start"
             color="inherit"
             className={classes.menuButton}
+            onClick={toggleIsMobileMenuOpenAction}
           >
-            <Icon.Menu size={20} />
+            {isMobileMenuOpen ? <Icon.X size={20} /> : <Icon.Menu size={20} />}
           </IconButton>
           <Box>
             <img
