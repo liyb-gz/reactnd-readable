@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback } from 'react';
 import {
   Card,
   CardHeader,
@@ -6,19 +6,13 @@ import {
   Typography,
   CardActions,
   Button,
-} from "@material-ui/core";
+} from '@material-ui/core';
 
-import { format } from "date-fns";
-import { useHistory } from "react-router";
+import { format } from 'date-fns';
+import { useHistory } from 'react-router';
+import { PostProps } from '../types/post';
 
-interface Props {
-  id: string;
-  title: string;
-  timestamp: number;
-  description: string;
-}
-
-const PostCard = ({ id, title, timestamp, description }: Props) => {
+const PostCard = ({ id, title, timestamp, description }: PostProps) => {
   const { push } = useHistory();
   const date = format(new Date(timestamp), "d MMM y 'at' HH:mm");
   const handleClick = useCallback(() => {
