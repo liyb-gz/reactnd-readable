@@ -1,65 +1,52 @@
-import { createMuiTheme } from '@material-ui/core';
+import { createMuiTheme } from "@material-ui/core";
 
 const serifFonts = [
   '"Playfair Display"',
   '"Times New Roman"',
-  'Times',
-  'serif',
-].join(',');
+  "Times",
+  "serif",
+].join(",");
 
 const sansSerifFonts = [
-  'Open Sans',
+  "Open Sans",
   '"Helvetica Neue"',
-  'Arial',
-  'sans-serif',
+  "Arial",
+  "sans-serif",
   '"Apple Color Emoji"',
   '"Segoe UI Emoji"',
   '"Segoe UI Symbol"',
-].join(',');
+].join(",");
 
 const defaultTheme = createMuiTheme();
+
+const headerTypographySetting = {
+  fontFamily: serifFonts,
+  fontWeight: defaultTheme.typography.fontWeightBold,
+};
 
 const theme = createMuiTheme({
   typography: {
     fontFamily: sansSerifFonts,
     fontSize: 16,
-    h1: {
-      fontFamily: serifFonts,
-      fontWeight: defaultTheme.typography.fontWeightBold,
-    },
-    h2: {
-      fontFamily: serifFonts,
-      fontWeight: defaultTheme.typography.fontWeightBold,
-    },
-    h3: {
-      fontFamily: serifFonts,
-      fontWeight: defaultTheme.typography.fontWeightBold,
-    },
-    h4: {
-      fontFamily: serifFonts,
-      fontWeight: defaultTheme.typography.fontWeightBold,
-    },
-    h5: {
-      fontFamily: serifFonts,
-      fontWeight: defaultTheme.typography.fontWeightBold,
-    },
-    h6: {
-      fontFamily: serifFonts,
-      fontWeight: defaultTheme.typography.fontWeightBold,
-    },
+    h1: headerTypographySetting,
+    h2: headerTypographySetting,
+    h3: headerTypographySetting,
+    h4: headerTypographySetting,
+    h5: headerTypographySetting,
+    h6: headerTypographySetting,
   },
   palette: {
     primary: {
-      light: '#ff9694',
-      main: '#d86666',
-      dark: '#a2373c',
-      contrastText: '#fff',
+      light: "#ff9694",
+      main: "#d86666",
+      dark: "#a2373c",
+      contrastText: "#fff",
     },
     secondary: {
-      light: '#647686',
-      main: '#394a59',
-      dark: '#112330',
-      contrastText: '#fff',
+      light: "#647686",
+      main: "#394a59",
+      dark: "#112330",
+      contrastText: "#fff",
     },
   },
   overrides: {
@@ -68,7 +55,7 @@ const theme = createMuiTheme({
         fontFamily: serifFonts,
       },
       secondary: {
-        fontFamily: serifFonts,
+        fontFamily: sansSerifFonts,
       },
     },
     MuiCardHeader: {
