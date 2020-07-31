@@ -3,6 +3,7 @@ import { makeStyles, Theme, createStyles, Grid } from '@material-ui/core';
 import PostCard from './PostCard';
 import { useSelector } from 'react-redux';
 import { selectPosts } from '../store/postSlice';
+import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,7 +17,11 @@ interface Props {}
 
 const PostCardGrid = () => {
   const classes = useStyles();
-  const posts = useSelector(selectPosts);
+  const { category } = useParams();
+  let posts = useSelector(selectPosts);
+  if (category) {
+    posts = posts.filter((post) => post.category === category);
+  }
   return (
     <Grid container spacing={3} className={classes.cards}>
       {posts.map((post) => (

@@ -3,6 +3,7 @@ import { makeStyles, Theme, createStyles, Grid } from '@material-ui/core';
 import PostListItem from './PostListItem';
 import { useSelector } from 'react-redux';
 import { selectPosts } from '../store/postSlice';
+import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,7 +16,11 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {}
 
 const PostListGrid = () => {
-  const posts = useSelector(selectPosts);
+  const { category } = useParams();
+  let posts = useSelector(selectPosts);
+  if (category) {
+    posts = posts.filter((post) => post.category === category);
+  }
   return (
     <Grid container>
       <Grid item xs={12}>

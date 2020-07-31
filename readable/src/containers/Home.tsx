@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux';
 import { selectIsPostsShownAsCards } from '../store/uiSlice';
 import PostListGrid from '../features/PostListGrid';
 import { selectCategories } from '../store/categorySlice';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,9 +46,12 @@ const Home = () => {
   const classes = useStyles();
   const isPostsShownAsCards = useSelector(selectIsPostsShownAsCards);
   const categories = useSelector(selectCategories);
+
+  const { category } = useParams();
   return (
     <div>
-      <Typography variant="h2">Home</Typography>
+      {category ? <Typography variant="subtitle2">Category</Typography> : null}
+      <Typography variant="h2">{category ? category : 'Home'}</Typography>
       <Grid
         container
         direction="row"
