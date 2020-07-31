@@ -27,15 +27,15 @@ export const testPosts: PostState = {
 
 export const testCategories = [
   {
-    name: 'react',
+    name: 'React',
     path: 'react',
   },
   {
-    name: 'redux',
+    name: 'Redux',
     path: 'redux',
   },
   {
-    name: 'udacity',
+    name: 'Udacity',
     path: 'udacity',
   },
 ];

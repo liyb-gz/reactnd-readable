@@ -48,10 +48,13 @@ const Home = () => {
   const categories = useSelector(selectCategories);
 
   const { category } = useParams();
+  const pageTitle = category
+    ? categories.find((c) => c.path === category)?.name
+    : 'Home';
   return (
     <div>
       {category ? <Typography variant="subtitle2">Category</Typography> : null}
-      <Typography variant="h2">{category ? category : 'Home'}</Typography>
+      <Typography variant="h2">{pageTitle}</Typography>
       <Grid
         container
         direction="row"
