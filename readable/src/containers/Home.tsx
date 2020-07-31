@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux';
 import { selectIsPostsShownAsCards } from '../store/uiSlice';
 import PostListGrid from '../features/PostListGrid';
 import { selectCategories } from '../store/categorySlice';
-import { NavLink, useParams, Link, useHistory } from 'react-router-dom';
+import { useParams, Link, useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

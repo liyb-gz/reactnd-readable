@@ -12,7 +12,6 @@ import Sidebar from './layouts/Sidebar';
 import Main from './layouts/Main';
 import SidebarMenu from './features/SidebarMenu';
 import Home from './containers/Home';
-import Categories from './containers/Categories';
 import Post from './containers/Post';
 import AddPost from './containers/AddPost';
 import Logo from './features/Logo';
@@ -56,8 +55,8 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/categories/:category" component={Home} />
-          <Route path="/post/" component={Post} exact />
           <Route path="/post/new" component={AddPost} />
+          <Route path="/post/:postId" component={Post} exact />
         </Switch>
       </Main>
     </div>
