@@ -20,7 +20,7 @@ const PostListGrid = () => {
     <Grid container>
       <Grid item xs={12}>
         {posts.map((post) => (
-          <PostListItem {...post} />
+          <PostListItem {...post} key={post.id} />
         ))}
       </Grid>
     </Grid>
