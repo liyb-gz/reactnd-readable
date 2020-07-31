@@ -6,14 +6,14 @@ import {
   Theme,
   createStyles,
   Grid,
-  IconButton,
   Typography,
 } from '@material-ui/core';
 
-import * as Icon from 'react-feather';
-import PostCard from '../features/PostCard';
 import TogglePostDisplayButton from '../features/TogglePostDisplayButton';
 import PostCardGrid from '../features/PostCardGrid';
+import { useSelector } from 'react-redux';
+import { selectIsPostsShownAsCards } from '../store/uiSlice';
+import PostListGrid from '../features/PostListGrid';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,6 +42,7 @@ interface Props {}
 
 const Home = (props: Props) => {
   const classes = useStyles();
+  const isPostsShownAsCards = useSelector(selectIsPostsShownAsCards);
   return (
     <div>
       <Typography variant="h2">Home</Typography>
@@ -62,7 +63,7 @@ const Home = (props: Props) => {
           <TogglePostDisplayButton />
         </Grid>
       </Grid>
-      <PostCardGrid />
+      {isPostsShownAsCards ? <PostCardGrid /> : <PostListGrid />}
     </div>
   );
 };
