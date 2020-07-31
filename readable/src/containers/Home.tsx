@@ -63,7 +63,7 @@ const Home = (props: Props) => {
                 clickable
                 component={NavLink}
                 key={category.name}
-                to={`categories/${category.path}`}
+                to={`/categories/${category.path}`}
               />
             ))}
           </Box>

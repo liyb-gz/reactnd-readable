@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from 'react';
 import {
   makeStyles,
   createStyles,
@@ -7,35 +7,41 @@ import {
   ListItemIcon,
   ListItemText,
   Divider,
-} from "@material-ui/core";
-import { NavLink } from "react-router-dom";
+  Collapse,
+} from '@material-ui/core';
+import { NavLink, Link } from 'react-router-dom';
 
-import * as Icon from "react-feather";
-import { useDispatch } from "react-redux";
-import { setIsMobileMenuOpen } from "../store/uiSlice";
+import * as Icon from 'react-feather';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsMobileMenuOpen } from '../store/uiSlice';
+import { selectCategories } from '../store/categorySlice';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     drawerContainer: {
-      overflow: "auto",
+      overflow: 'auto',
     },
-    logo: { width: "100%", padding: theme.spacing(2) },
+    logo: { width: '100%', padding: theme.spacing(2) },
     active: {
       backgroundColor: theme.palette.primary.main,
       color: theme.palette.primary.contrastText,
 
-      "& .MuiListItemIcon-root": {
+      '& .MuiListItemIcon-root': {
         color: theme.palette.primary.contrastText,
       },
 
-      "&:hover": {
+      '&:hover': {
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.primary.contrastText,
 
-        "& .MuiListItemIcon-root": {
+        '& .MuiListItemIcon-root': {
           color: theme.palette.primary.contrastText,
         },
       },
+    },
+    nestedMenuItem: {
+      paddingLeft: theme.spacing(6),
+      fontSize: theme.typography.body2.fontSize,
     },
   })
 );
@@ -44,7 +50,15 @@ interface Props {}
 
 const SidebarMenu = () => {
   const dispatch = useDispatch();
-  const closeMobileMenu = () => dispatch(setIsMobileMenuOpen(false));
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const closeMobileMenu = useCallback(
+    () => dispatch(setIsMobileMenuOpen(false)),
+    []
+  );
+  const toggleCategories = useCallback(() => {
+    setIsCategoryOpen((currentValue) => !currentValue);
+  }, []);
+  const categories = useSelector(selectCategories);
   const classes = useStyles();
   return (
     <div className={classes.drawerContainer}>
@@ -62,18 +76,34 @@ const SidebarMenu = () => {
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
-        <ListItem
-          button
-          onClick={closeMobileMenu}
-          component={NavLink}
-          activeClassName={classes.active}
-          to="/categories"
-        >
+        <ListItem button onClick={toggleCategories}>
           <ListItemIcon>
             <Icon.Grid size={20} />
           </ListItemIcon>
           <ListItemText primary="Categories" />
+          {isCategoryOpen ? (
+            <Icon.ChevronDown size={20} />
+          ) : (
+            <Icon.ChevronRight size={20} />
+          )}
         </ListItem>
+        <Collapse in={isCategoryOpen}>
+          <List component="div" disablePadding>
+            {categories.map((category) => (
+              <ListItem
+                button
+                className={classes.nestedMenuItem}
+                onClick={closeMobileMenu}
+                key={category.name}
+                component={NavLink}
+                activeClassName={classes.active}
+                to={`/categories/${category.path}`}
+              >
+                <ListItemText primary={category.name} />
+              </ListItem>
+            ))}
+          </List>
+        </Collapse>
         <ListItem
           button
           onClick={closeMobileMenu}
