@@ -55,7 +55,7 @@ const App = () => {
       <Main>
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/categories" component={Categories} />
+          <Route path="/categories/:category" component={Home} />
           <Route path="/post/" component={Post} exact />
           <Route path="/post/new" component={AddPost} />
         </Switch>

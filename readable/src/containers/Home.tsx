@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {}
 
-const Home = (props: Props) => {
+const Home = () => {
   const classes = useStyles();
   const isPostsShownAsCards = useSelector(selectIsPostsShownAsCards);
   const categories = useSelector(selectCategories);
@@ -62,6 +62,7 @@ const Home = (props: Props) => {
                 label={category.name}
                 clickable
                 component={NavLink}
+                activeClassName="MuiChip-clickableColorPrimary MuiChip-colorPrimary"
                 key={category.name}
                 to={`/categories/${category.path}`}
               />
