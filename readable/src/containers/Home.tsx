@@ -62,6 +62,7 @@ const Home = (props: Props) => {
                 label={category.name}
                 clickable
                 component={NavLink}
+                key={category.name}
                 to={`categories/${category.path}`}
               />
             ))}
