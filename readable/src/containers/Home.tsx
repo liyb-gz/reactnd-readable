@@ -14,6 +14,8 @@ import PostCardGrid from '../features/PostCardGrid';
 import { useSelector } from 'react-redux';
 import { selectIsPostsShownAsCards } from '../store/uiSlice';
 import PostListGrid from '../features/PostListGrid';
+import { selectCategories } from '../store/categorySlice';
+import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,6 +45,7 @@ interface Props {}
 const Home = (props: Props) => {
   const classes = useStyles();
   const isPostsShownAsCards = useSelector(selectIsPostsShownAsCards);
+  const categories = useSelector(selectCategories);
   return (
     <div>
       <Typography variant="h2">Home</Typography>
@@ -54,9 +57,14 @@ const Home = (props: Props) => {
       >
         <Grid item>
           <Box className={classes.chips}>
-            <Chip label="Category Name" clickable />
-            <Chip label="Category Name" clickable color="primary" />
-            <Chip label="Category Name" clickable />
+            {categories.map((category) => (
+              <Chip
+                label={category.name}
+                clickable
+                component={NavLink}
+                to={`categories/${category.path}`}
+              />
+            ))}
           </Box>
         </Grid>
         <Grid item>

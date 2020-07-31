@@ -24,3 +24,18 @@ export const testPosts: PostState = {
     commentCount: 0,
   },
 };
+
+export const testCategories = [
+  {
+    name: 'react',
+    path: 'react',
+  },
+  {
+    name: 'redux',
+    path: 'redux',
+  },
+  {
+    name: 'udacity',
+    path: 'udacity',
+  },
+];

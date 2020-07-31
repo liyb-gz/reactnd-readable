@@ -19,7 +19,8 @@ import Logo from './features/Logo';
 import { useDispatch } from 'react-redux';
 import { store } from './store/store';
 import { fetchPosts } from './store/postSlice';
-import { testPosts } from './testData';
+import { fetchCategories } from './store/categorySlice';
+import { testPosts, testCategories } from './testData';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,11 +37,12 @@ const useStyles = makeStyles((theme: Theme) =>
 const App = () => {
   const classes = useStyles();
   const dispatch = useDispatch<typeof store.dispatch>();
-  const getAllPosts = useCallback(() => {
+  const getInitialData = useCallback(() => {
     dispatch(fetchPosts(testPosts));
+    dispatch(fetchCategories(testCategories));
   }, []);
 
-  useEffect(() => getAllPosts(), []);
+  useEffect(() => getInitialData(), []);
 
   return (
     <div className={classes.root}>

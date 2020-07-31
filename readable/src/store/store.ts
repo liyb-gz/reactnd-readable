@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import uiReducer from './uiSlice';
 import postReducer from './postSlice';
+import categoryReducer from './categorySlice';
 
 export const store = configureStore({
   reducer: {
     ui: uiReducer,
     posts: postReducer,
+    categories: categoryReducer,
   },
 });
 
