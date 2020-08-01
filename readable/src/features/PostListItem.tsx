@@ -10,6 +10,8 @@ import {
 import { PostProps } from '../types/post';
 import { useHistory } from 'react-router-dom';
 import { format } from 'date-fns';
+import { truncate } from '../utils/helpers';
+import { cardBodyLength, cardTitleLength } from '../utils/constants';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,9 +38,12 @@ const PostListItem = ({ id, title, timestamp, body }: PostProps) => {
   }, [id, push]);
   return (
     <ListItem divider button onClick={handleClick}>
-      <ListItemText classes={{ secondary: classes.body }} secondary={body}>
+      <ListItemText
+        classes={{ secondary: classes.body }}
+        secondary={truncate(body, cardBodyLength)}
+      >
         <Typography variant="h4" component="span" className={classes.title}>
-          {title}
+          {truncate(title, cardTitleLength)}
         </Typography>
         <Typography variant="body2" component="span" className={classes.time}>
           {date}

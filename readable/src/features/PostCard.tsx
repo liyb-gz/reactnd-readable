@@ -11,6 +11,8 @@ import {
 import { format } from 'date-fns';
 import { useHistory } from 'react-router';
 import { PostProps } from '../types/post';
+import { truncate } from '../utils/helpers';
+import { cardTitleLength, cardBodyLength } from '../utils/constants';
 
 const PostCard = ({ id, title, timestamp, body }: PostProps) => {
   const { push } = useHistory();
@@ -20,9 +22,9 @@ const PostCard = ({ id, title, timestamp, body }: PostProps) => {
   }, [id, push]);
   return (
     <Card>
-      <CardHeader title={title} subheader={date} />
+      <CardHeader title={truncate(title, cardTitleLength)} subheader={date} />
       <CardContent>
-        <Typography component="p">{body}</Typography>
+        <Typography component="p">{truncate(body, cardBodyLength)}</Typography>
       </CardContent>
       <CardActions>
         <Button color="primary" onClick={handleClick}>
