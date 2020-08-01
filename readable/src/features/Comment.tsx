@@ -6,6 +6,7 @@ import {
   makeStyles,
   createStyles,
   Theme,
+  Grid,
 } from '@material-ui/core';
 import { format } from 'date-fns';
 
@@ -28,15 +29,26 @@ const useStyles = makeStyles((theme: Theme) =>
 const Comment = ({ author, body, timestamp, voteScore }: CommentProps) => {
   const classes = useStyles();
   const date = format(new Date(timestamp), "d MMM y 'at' HH:mm");
+  const heartColor = voteScore > 0 ? 'red' : 'gray';
   return (
     <div>
       <Paper elevation={3} className={classes.commentBody}>
         <p>{body}</p>
       </Paper>
-      <Typography variant="body2" color="textSecondary">
-        <Icon.Heart size={20} color="red" fill="red" /> {voteScore} | by{' '}
-        {author} | {date}
-      </Typography>
+      <Grid container spacing={4}>
+        <Grid item>
+          <Typography variant="subtitle2">{author}</Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="subtitle2">{date}</Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="subtitle2">
+            <Icon.Heart size={16} color={heartColor} fill={heartColor} />{' '}
+            {voteScore}
+          </Typography>
+        </Grid>
+      </Grid>
     </div>
   );
 };
