@@ -10,6 +10,8 @@ import {
   Theme,
 } from '@material-ui/core';
 import { format } from 'date-fns';
+import { selectComments } from '../store/commentSlice';
+import Comment from '../features/Comment';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,17 +28,27 @@ const Post = (props: Props) => {
   const classes = useStyles();
   const { postId } = useParams();
   const posts = useSelector(selectPostState);
+  const allComments = useSelector(selectComments);
+
   const post = posts[postId];
+  const comments = allComments.filter(
+    (comment) => comment.parentId === post.id
+  );
   const date = format(new Date(post.timestamp), "d MMM y 'at' HH:mm");
   return (
     <div>
       <p>Post: {postId}</p>
       <Typography variant="h3">{post.title}</Typography>
       <Typography variant="subtitle2">
-        by {post.author}, {date}
+        {post.author} | {date}
       </Typography>
       <Divider className={classes.divider} />
       <p>{post.body}</p>
+      <Divider className={classes.divider} />
+      <Typography variant="h4">Comments</Typography>
+      {comments.map((comment) => (
+        <Comment {...comment} />
+      ))}
     </div>
   );
 };
