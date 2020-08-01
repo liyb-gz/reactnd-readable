@@ -62,7 +62,12 @@ const Login = (props: Props) => {
         }}
         label="Username"
       />
-      <Button color="primary" variant="contained" onClick={handleClick}>
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={handleClick}
+        disabled={username.length === 0}
+      >
         OK
       </Button>
     </div>
