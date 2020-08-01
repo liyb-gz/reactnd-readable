@@ -25,6 +25,7 @@ import { setIsLoading, selectIsLoading } from './store/uiSlice';
 import Loading from './containers/Loading';
 import NotFound from './containers/NotFound';
 import Login from './containers/Login';
+import { selectIsLoggedIn } from './store/userSlice';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,6 +46,7 @@ const App = () => {
   const classes = useStyles();
   const dispatch = useDispatch<typeof store.dispatch>();
   const isLoading = useSelector(selectIsLoading);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const getInitialData = useCallback(() => {
     dispatch(fetchPosts(testPosts));
     dispatch(fetchCategories(testCategories));
@@ -54,7 +56,9 @@ const App = () => {
 
   useEffect(() => getInitialData(), [getInitialData]);
 
-  return isLoading ? (
+  return !isLoggedIn ? (
+    <Login />
+  ) : isLoading ? (
     <Loading />
   ) : (
     <div className={classes.root}>

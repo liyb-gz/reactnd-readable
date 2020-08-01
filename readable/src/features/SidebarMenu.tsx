@@ -15,6 +15,7 @@ import * as Icon from 'react-feather';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsMobileMenuOpen } from '../store/uiSlice';
 import { selectCategories } from '../store/categorySlice';
+import { logout, selectUsername } from '../store/userSlice';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -50,6 +51,10 @@ interface Props {}
 const SidebarMenu = () => {
   const dispatch = useDispatch();
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+
+  const categories = useSelector(selectCategories);
+  const username = useSelector(selectUsername);
+  const classes = useStyles();
   const closeMobileMenu = useCallback(
     () => dispatch(setIsMobileMenuOpen(false)),
     [dispatch]
@@ -57,10 +62,17 @@ const SidebarMenu = () => {
   const toggleCategories = useCallback(() => {
     setIsCategoryOpen((currentValue) => !currentValue);
   }, []);
-  const categories = useSelector(selectCategories);
-  const classes = useStyles();
+  const handleLogout = useCallback(() => {
+    dispatch(logout());
+  }, [dispatch]);
   return (
     <div className={classes.drawerContainer}>
+      <List>
+        <ListItem>
+          <ListItemText primary={`Hello, ${username}!`} />
+        </ListItem>
+      </List>
+      <Divider />
       <List>
         <ListItem
           button
@@ -118,7 +130,7 @@ const SidebarMenu = () => {
       </List>
       <Divider />
       <List>
-        <ListItem button>
+        <ListItem button onClick={handleLogout}>
           <ListItemIcon>
             <Icon.LogOut size={20} />
           </ListItemIcon>

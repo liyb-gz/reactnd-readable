@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   makeStyles,
   Theme,
@@ -7,6 +7,9 @@ import {
   Button,
   TextField,
 } from '@material-ui/core';
+import Logo from '../features/Logo';
+import { useDispatch } from 'react-redux';
+import { login } from '../store/userSlice';
 
 interface Props {}
 
@@ -27,23 +30,39 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: `calc(100vw - ${theme.spacing(3) * 2}px)`,
     },
     username: {
-      width: 500,
+      width: 300,
       maxWidth: '100%',
+    },
+    usernameInput: {
+      textAlign: 'center',
+    },
+    logo: {
+      maxWidth: 200,
     },
   })
 );
 
 const Login = (props: Props) => {
   const classes = useStyles();
+  const [username, setUsername] = useState('');
+  const dispatch = useDispatch();
+  const handleClick = useCallback(() => {
+    dispatch(login({ username, token: 'testToken' }));
+  }, [dispatch, username]);
   return (
     <div className={classes.root}>
-      <Typography variant="h3">Log in</Typography>
+      <Logo className={classes.logo} />
+      <Typography variant="subtitle1">Enter a username to login.</Typography>
       <TextField
         className={classes.username}
+        inputProps={{ className: classes.usernameInput }}
+        value={username}
+        onChange={(e) => {
+          setUsername(e.target.value);
+        }}
         label="Username"
-        placeholder="Enter a username to login."
       />
-      <Button color="primary" variant="contained">
+      <Button color="primary" variant="contained" onClick={handleClick}>
         OK
       </Button>
     </div>
