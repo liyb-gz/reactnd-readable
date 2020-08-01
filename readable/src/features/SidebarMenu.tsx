@@ -9,7 +9,7 @@ import {
   Divider,
   Collapse,
 } from '@material-ui/core';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import * as Icon from 'react-feather';
 import { useDispatch, useSelector } from 'react-redux';
@@ -53,7 +53,7 @@ const SidebarMenu = () => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const closeMobileMenu = useCallback(
     () => dispatch(setIsMobileMenuOpen(false)),
-    []
+    [dispatch]
   );
   const toggleCategories = useCallback(() => {
     setIsCategoryOpen((currentValue) => !currentValue);

@@ -45,9 +45,9 @@ const App = () => {
     dispatch(fetchCategories(testCategories));
     dispatch(fetchComments(testComments));
     dispatch(setIsLoading(false));
-  }, []);
+  }, [dispatch]);
 
-  useEffect(() => getInitialData(), []);
+  useEffect(() => getInitialData(), [getInitialData]);
 
   return isLoading ? (
     <Loading />

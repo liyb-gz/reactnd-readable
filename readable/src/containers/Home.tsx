@@ -48,10 +48,13 @@ const Home = () => {
   const categories = useSelector(selectCategories);
 
   const history = useHistory();
-  const goHome = useCallback((event) => {
-    event.preventDefault();
-    history.push('/');
-  }, []);
+  const goHome = useCallback(
+    (event) => {
+      event.preventDefault();
+      history.push('/');
+    },
+    [history]
+  );
 
   const { category: categoryPath } = useParams();
   const pageTitle = categoryPath
