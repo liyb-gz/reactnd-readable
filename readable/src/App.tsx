@@ -19,7 +19,8 @@ import { useDispatch } from 'react-redux';
 import { store } from './store/store';
 import { fetchPosts } from './store/postSlice';
 import { fetchCategories } from './store/categorySlice';
-import { testPosts, testCategories } from './testData';
+import { testPosts, testCategories, testComments } from './testData';
+import { fetchComments } from './store/commentSlice';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,6 +40,7 @@ const App = () => {
   const getInitialData = useCallback(() => {
     dispatch(fetchPosts(testPosts));
     dispatch(fetchCategories(testCategories));
+    dispatch(fetchComments(testComments));
   }, []);
 
   useEffect(() => getInitialData(), []);
