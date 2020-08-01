@@ -4,11 +4,13 @@ import { RootState } from './store';
 interface UiState {
   isMobileMenuOpen: boolean;
   isPostsShownAsCards: boolean;
+  isLoading: boolean;
 }
 
 const initialState: UiState = {
   isMobileMenuOpen: false,
   isPostsShownAsCards: true,
+  isLoading: true,
 };
 
 export const uiSlice = createSlice({
@@ -30,6 +32,9 @@ export const uiSlice = createSlice({
     toggleIsPostsShownAsCards: (state: UiState) => {
       state.isPostsShownAsCards = !state.isPostsShownAsCards;
     },
+    setIsLoading: (state: UiState, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
   },
 });
 
@@ -38,6 +43,7 @@ export const {
   toggleIsMobileMenuOpen,
   setIsPostsShownAsCards,
   toggleIsPostsShownAsCards,
+  setIsLoading,
 } = uiSlice.actions;
 
 export const selectIsMobileMenuOpen = (state: RootState) =>
@@ -45,5 +51,7 @@ export const selectIsMobileMenuOpen = (state: RootState) =>
 
 export const selectIsPostsShownAsCards = (state: RootState) =>
   state.ui.isPostsShownAsCards;
+
+export const selectIsLoading = (state: RootState) => state.ui.isLoading;
 
 export default uiSlice.reducer;

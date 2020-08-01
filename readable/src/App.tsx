@@ -15,12 +15,14 @@ import Home from './containers/Home';
 import Post from './containers/Post';
 import AddPost from './containers/AddPost';
 import Logo from './features/Logo';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { store } from './store/store';
 import { fetchPosts } from './store/postSlice';
 import { fetchCategories } from './store/categorySlice';
 import { testPosts, testCategories, testComments } from './testData';
 import { fetchComments } from './store/commentSlice';
+import { setIsLoading, selectIsLoading } from './store/uiSlice';
+import Loading from './containers/Loading';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,15 +39,19 @@ const useStyles = makeStyles((theme: Theme) =>
 const App = () => {
   const classes = useStyles();
   const dispatch = useDispatch<typeof store.dispatch>();
+  const isLoading = useSelector(selectIsLoading);
   const getInitialData = useCallback(() => {
     dispatch(fetchPosts(testPosts));
     dispatch(fetchCategories(testCategories));
     dispatch(fetchComments(testComments));
+    dispatch(setIsLoading(false));
   }, []);
 
   useEffect(() => getInitialData(), []);
 
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <div className={classes.root}>
       <CssBaseline />
       <Topbar />

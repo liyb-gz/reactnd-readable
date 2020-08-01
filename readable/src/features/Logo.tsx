@@ -7,10 +7,14 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const Logo = () => {
+interface Props {
+  className?: string;
+}
+
+const Logo = (props: Props) => {
   const classes = useStyles();
   return (
-    <Box>
+    <Box className={props.className}>
       <img src="/logo.svg" className={classes.logo} alt="Readable logo" />
     </Box>
   );
