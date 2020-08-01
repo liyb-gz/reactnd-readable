@@ -108,19 +108,6 @@ const SidebarMenu = () => {
           onClick={closeMobileMenu}
           component={NavLink}
           activeClassName={classes.active}
-          exact
-          to="/post"
-        >
-          <ListItemIcon>
-            <Icon.FileText size={20} />
-          </ListItemIcon>
-          <ListItemText primary="Post" />
-        </ListItem>
-        <ListItem
-          button
-          onClick={closeMobileMenu}
-          component={NavLink}
-          activeClassName={classes.active}
           to="/post/new"
         >
           <ListItemIcon>
