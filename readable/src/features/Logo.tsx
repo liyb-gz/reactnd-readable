@@ -3,7 +3,7 @@ import { Box, createStyles, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
-    logo: { width: '100%', padding: theme.spacing(2) },
+    logo: { width: '100%', maxHeight: '100%', maxWidth: '100%' },
   })
 );
 

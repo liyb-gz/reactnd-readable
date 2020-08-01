@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) =>
     drawerContainer: {
       overflow: 'auto',
     },
-    logo: { width: '100%', padding: theme.spacing(2) },
     active: {
       backgroundColor: theme.palette.primary.main,
       color: theme.palette.primary.contrastText,

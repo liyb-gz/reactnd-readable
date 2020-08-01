@@ -23,11 +23,15 @@ import { testPosts, testCategories, testComments } from './testData';
 import { fetchComments } from './store/commentSlice';
 import { setIsLoading, selectIsLoading } from './store/uiSlice';
 import Loading from './containers/Loading';
+import NotFound from './containers/NotFound';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
+    },
+    logo: {
+      padding: theme.spacing(2),
     },
     content: {
       flexGrow: 1,
@@ -56,7 +60,7 @@ const App = () => {
       <CssBaseline />
       <Topbar />
       <Sidebar>
-        <Logo />
+        <Logo className={classes.logo} />
         <SidebarMenu />
       </Sidebar>
       <Main>
@@ -65,6 +69,7 @@ const App = () => {
           <Route path="/categories/:category" component={Home} />
           <Route path="/post/new" component={AddPost} />
           <Route path="/post/:postId" component={Post} exact />
+          <Route component={NotFound} />
         </Switch>
       </Main>
     </div>

@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
       alignItems: 'center',
       flexDirection: 'column',
-      height: '100vh',
+      height: `calc(100vh - ${theme.spacing(1) * 2}px)`,
     },
     logo: {
       maxWidth: 200,
