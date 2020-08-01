@@ -24,6 +24,7 @@ import { fetchComments } from './store/commentSlice';
 import { setIsLoading, selectIsLoading } from './store/uiSlice';
 import Loading from './containers/Loading';
 import NotFound from './containers/NotFound';
+import Login from './containers/Login';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -69,6 +70,7 @@ const App = () => {
           <Route path="/categories/:category" component={Home} />
           <Route path="/post/new" component={AddPost} />
           <Route path="/post/:postId" component={Post} exact />
+          <Route path="/login" component={Login} />
           <Route component={NotFound} />
         </Switch>
       </Main>
