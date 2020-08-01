@@ -1,16 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 
+export enum PostOrder {
+  SCORE = 'score',
+  DATE = 'date',
+}
+
 interface UiState {
   isMobileMenuOpen: boolean;
   isPostsShownAsCards: boolean;
   isLoading: boolean;
+  postOrder: PostOrder;
 }
 
 const initialState: UiState = {
   isMobileMenuOpen: false,
   isPostsShownAsCards: true,
   isLoading: true,
+  postOrder: PostOrder.SCORE,
 };
 
 export const uiSlice = createSlice({
@@ -35,6 +42,9 @@ export const uiSlice = createSlice({
     setIsLoading: (state: UiState, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
+    setPostOrder: (state: UiState, action: PayloadAction<PostOrder>) => {
+      state.postOrder = action.payload;
+    },
   },
 });
 
@@ -44,6 +54,7 @@ export const {
   setIsPostsShownAsCards,
   toggleIsPostsShownAsCards,
   setIsLoading,
+  setPostOrder,
 } = uiSlice.actions;
 
 export const selectIsMobileMenuOpen = (state: RootState) =>
@@ -53,5 +64,6 @@ export const selectIsPostsShownAsCards = (state: RootState) =>
   state.ui.isPostsShownAsCards;
 
 export const selectIsLoading = (state: RootState) => state.ui.isLoading;
+export const selectPostOrder = (state: RootState) => state.ui.postOrder;
 
 export default uiSlice.reducer;

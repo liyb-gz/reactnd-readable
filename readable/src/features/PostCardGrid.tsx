@@ -4,6 +4,7 @@ import PostCard from './PostCard';
 import { useSelector } from 'react-redux';
 import { selectPosts } from '../store/postSlice';
 import { useParams } from 'react-router-dom';
+import { selectPostOrder, PostOrder } from '../store/uiSlice';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,9 +19,17 @@ interface Props {}
 const PostCardGrid = () => {
   const classes = useStyles();
   const { category } = useParams();
+  const postOrder = useSelector(selectPostOrder);
   let posts = useSelector(selectPosts);
   if (category) {
     posts = posts.filter((post) => post.category === category);
+  }
+  switch (postOrder) {
+    case PostOrder.SCORE:
+      posts.sort((a, b) => b.voteScore - a.voteScore);
+      break;
+    case PostOrder.DATE:
+      posts.sort((a, b) => b.timestamp - a.timestamp);
   }
   return (
     <Grid container spacing={3} className={classes.cards}>

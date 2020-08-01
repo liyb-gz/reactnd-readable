@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     logo: {
       maxWidth: 200,
+      marginBottom: theme.spacing(4),
     },
     progress: {
       marginBottom: 100,

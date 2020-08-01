@@ -16,6 +16,7 @@ import { selectIsPostsShownAsCards } from '../store/uiSlice';
 import PostListGrid from '../features/PostListGrid';
 import { selectCategories } from '../store/categorySlice';
 import { useParams, Link, useHistory } from 'react-router-dom';
+import TogglePostSortButton from '../features/TogglePostSortButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,6 +37,9 @@ const useStyles = makeStyles((theme: Theme) =>
     controlBar: {
       display: 'flex',
       justifyItems: 'space-between',
+    },
+    buttonGroup: {
+      marginRight: theme.spacing(2),
     },
   })
 );
@@ -91,6 +95,7 @@ const Home = () => {
           </Box>
         </Grid>
         <Grid item>
+          <TogglePostSortButton className={classes.buttonGroup} />
           <TogglePostDisplayButton />
         </Grid>
       </Grid>
