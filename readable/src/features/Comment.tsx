@@ -1,11 +1,18 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { CommentProps } from '../types/comment';
-import { Paper, makeStyles, createStyles, Theme } from '@material-ui/core';
+import {
+  Paper,
+  makeStyles,
+  createStyles,
+  Theme,
+  Modal,
+} from '@material-ui/core';
 import { format } from 'date-fns';
 
 import PostInfo from './PostInfo';
 import { useDispatch } from 'react-redux';
 import { upvoteComment, downvoteComment } from '../store/commentSlice';
+import AddComment from './AddComment';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,12 +25,29 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(2),
       marginBottom: theme.spacing(2),
     },
+    modal: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    modalContent: {
+      padding: theme.spacing(3),
+    },
   })
 );
 
-const Comment = ({ id, author, body, timestamp, voteScore }: CommentProps) => {
+const Comment = ({
+  id,
+  author,
+  body,
+  timestamp,
+  voteScore,
+  parentId,
+}: CommentProps) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  const [isEditOpen, setIsEditOpen] = useState(false);
 
   const handleUpvote = useCallback(() => {
     dispatch(upvoteComment({ id }));
@@ -46,7 +70,18 @@ const Comment = ({ id, author, body, timestamp, voteScore }: CommentProps) => {
         color="textSecondary"
         onUpvote={handleUpvote}
         onDownvote={handleDownvote}
+        onEdit={() => setIsEditOpen(true)}
       />
+      <Modal
+        open={isEditOpen}
+        className={classes.modal}
+        disableEnforceFocus
+        onClose={() => setIsEditOpen(false)}
+      >
+        <Paper className={classes.modalContent}>
+          <AddComment postId={parentId} onClose={() => setIsEditOpen(false)} />
+        </Paper>
+      </Modal>
     </div>
   );
 };

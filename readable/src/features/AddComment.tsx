@@ -57,12 +57,13 @@ const AddComment = ({ postId, onClose }: Props) => {
     <Grid container className={classes.comment}>
       <Grid item xs={12}>
         <TextField
-          label="Post"
+          label="Comment"
           required
           placeholder="Leave your comment..."
           multiline
           rows={5}
           fullWidth
+          autoFocus
           variant="outlined"
           className={classes.formControl}
           value={commentBody}
