@@ -61,6 +61,7 @@ const Login = (props: Props) => {
           setUsername(e.target.value);
         }}
         label="Username"
+        autoFocus
       />
       <Button
         color="primary"
