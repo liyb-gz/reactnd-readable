@@ -51,13 +51,13 @@ const Home = () => {
   const isPostsShownAsCards = useSelector(selectIsPostsShownAsCards);
   const categories = useSelector(selectCategories);
 
-  const history = useHistory();
+  const { push } = useHistory();
   const goHome = useCallback(
     (event) => {
       event.preventDefault();
-      history.push('/');
+      push('/');
     },
-    [history]
+    [push]
   );
 
   const { category: categoryPath } = useParams();

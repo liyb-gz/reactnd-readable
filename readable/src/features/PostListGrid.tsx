@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, makeStyles, Theme, createStyles } from '@material-ui/core';
 import PostListItem from './PostListItem';
 import { useSelector } from 'react-redux';
 import { selectPosts } from '../store/postSlice';
@@ -8,7 +8,16 @@ import { selectPostOrder, PostOrder } from '../store/uiSlice';
 
 interface Props {}
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      marginTop: theme.spacing(4),
+    },
+  })
+);
+
 const PostListGrid = () => {
+  const classes = useStyles();
   const { category } = useParams();
   const postOrder = useSelector(selectPostOrder);
   let posts = useSelector(selectPosts);
@@ -23,7 +32,7 @@ const PostListGrid = () => {
       posts.sort((a, b) => b.timestamp - a.timestamp);
   }
   return (
-    <Grid container>
+    <Grid container className={classes.root}>
       <Grid item xs={12}>
         {posts.map((post) => (
           <PostListItem {...post} key={post.id} />

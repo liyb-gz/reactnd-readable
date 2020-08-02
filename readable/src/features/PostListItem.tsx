@@ -12,6 +12,7 @@ import { useHistory } from 'react-router-dom';
 import { format } from 'date-fns';
 import { truncate } from '../utils/helpers';
 import { cardBodyLength, cardTitleLength } from '../utils/constants';
+import PostInfo from './PostInfo';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,7 +30,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const PostListItem = ({ id, title, timestamp, body }: PostProps) => {
+const PostListItem = ({
+  id,
+  title,
+  timestamp,
+  body,
+  author,
+  voteScore,
+}: PostProps) => {
   const { push } = useHistory();
   const classes = useStyles();
   const date = format(new Date(timestamp), "d MMM y 'at' HH:mm");
@@ -42,12 +50,15 @@ const PostListItem = ({ id, title, timestamp, body }: PostProps) => {
         classes={{ secondary: classes.body }}
         secondary={truncate(body, cardBodyLength)}
       >
-        <Typography variant="h4" component="span" className={classes.title}>
+        <Typography variant="h4" component="h4" className={classes.title}>
           {truncate(title, cardTitleLength)}
         </Typography>
-        <Typography variant="body2" component="span" className={classes.time}>
-          {date}
-        </Typography>
+        <PostInfo
+          date={date}
+          author={author}
+          voteScore={voteScore}
+          color="textSecondary"
+        />
       </ListItemText>
     </ListItem>
   );

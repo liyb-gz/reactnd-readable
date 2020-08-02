@@ -16,8 +16,6 @@ import {
 } from '@material-ui/core';
 import { selectCategories } from '../store/categorySlice';
 import { useSelector } from 'react-redux';
-import { CategoryProps } from '../types/category';
-import { valueof } from '../types/typeHelpers';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

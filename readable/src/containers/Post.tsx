@@ -8,12 +8,11 @@ import {
   makeStyles,
   createStyles,
   Theme,
-  Grid,
 } from '@material-ui/core';
 import { format } from 'date-fns';
 import { selectComments } from '../store/commentSlice';
 import Comment from '../features/Comment';
-import * as Icon from 'react-feather';
+import PostInfo from '../features/PostInfo';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,25 +36,11 @@ const Post = (props: Props) => {
     (comment) => comment.parentId === post.id
   );
   const date = format(new Date(post.timestamp), "d MMM y 'at' HH:mm");
-  const heartColor = post.voteScore > 0 ? 'red' : 'gray';
   return (
     <div>
       <p>Post: {postId}</p>
       <Typography variant="h3">{post.title}</Typography>
-      <Grid container spacing={4}>
-        <Grid item>
-          <Typography variant="subtitle2">{post.author}</Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant="subtitle2">{date}</Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant="subtitle2">
-            <Icon.Heart size={16} color={heartColor} fill={heartColor} />{' '}
-            {post.voteScore}
-          </Typography>
-        </Grid>
-      </Grid>
+      <PostInfo date={date} author={post.author} voteScore={post.voteScore} />
       <Divider className={classes.divider} />
       <p>{post.body}</p>
       <Divider className={classes.divider} />
