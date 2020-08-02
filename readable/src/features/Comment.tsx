@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { CommentProps } from '../types/comment';
 import { Paper, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { format } from 'date-fns';
 
 import PostInfo from './PostInfo';
+import { useDispatch } from 'react-redux';
+import { upvoteComment, downvoteComment } from '../store/commentSlice';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,8 +21,18 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Comment = ({ author, body, timestamp, voteScore }: CommentProps) => {
+const Comment = ({ id, author, body, timestamp, voteScore }: CommentProps) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const handleUpvote = useCallback(() => {
+    dispatch(upvoteComment({ id }));
+  }, [dispatch, id]);
+
+  const handleDownvote = useCallback(() => {
+    dispatch(downvoteComment({ id }));
+  }, [dispatch, id]);
+
   const date = format(new Date(timestamp), "d MMM y 'at' HH:mm");
   return (
     <div>
@@ -32,6 +44,8 @@ const Comment = ({ author, body, timestamp, voteScore }: CommentProps) => {
         author={author}
         voteScore={voteScore}
         color="textSecondary"
+        onUpvote={handleUpvote}
+        onDownvote={handleDownvote}
       />
     </div>
   );

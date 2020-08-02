@@ -7,6 +7,10 @@ export interface CommentState {
   [id: string]: CommentProps;
 }
 
+export interface CommentVotePayload {
+  id: string;
+}
+
 const initialState: CommentState = {};
 
 export const commentSlice = createSlice({
@@ -23,10 +27,29 @@ export const commentSlice = createSlice({
       const comment = action.payload;
       state[comment.id] = comment;
     },
+    upvoteComment: (
+      state: CommentState,
+      action: PayloadAction<CommentVotePayload>
+    ) => {
+      const { id } = action.payload;
+      state[id].voteScore += 1;
+    },
+    downvoteComment: (
+      state: CommentState,
+      action: PayloadAction<CommentVotePayload>
+    ) => {
+      const { id } = action.payload;
+      state[id].voteScore -= 1;
+    },
   },
 });
 
-export const { fetchComments, addComment } = commentSlice.actions;
+export const {
+  fetchComments,
+  addComment,
+  upvoteComment,
+  downvoteComment,
+} = commentSlice.actions;
 
 export const addCommentThunk = (comment: CommentProps): AppThunk => (
   dispatch
