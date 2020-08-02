@@ -45,22 +45,31 @@ const useStyles = makeStyles((theme: Theme) =>
 const App = () => {
   const classes = useStyles();
   const dispatch = useDispatch<typeof store.dispatch>();
-  const isLoading = useSelector(selectIsLoading);
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isLoading = useSelector(selectIsLoading);
+
   const getInitialData = useCallback(() => {
-    dispatch(fetchPosts(testPosts));
     dispatch(fetchCategories(testCategories));
+    dispatch(fetchPosts(testPosts));
     dispatch(fetchComments(testComments));
     dispatch(setIsLoading(false));
   }, [dispatch]);
 
-  useEffect(() => getInitialData(), [getInitialData]);
+  useEffect(() => {
+    if (isLoggedIn) {
+      getInitialData();
+    }
+  }, [isLoggedIn, getInitialData]);
 
-  return !isLoggedIn ? (
-    <Login />
-  ) : isLoading ? (
-    <Loading />
-  ) : (
+  if (!isLoggedIn) {
+    return <Login />;
+  }
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  return (
     <div className={classes.root}>
       <CssBaseline />
       <Topbar />

@@ -52,7 +52,7 @@ const AddComment = ({ postId, onClose }: Props) => {
     dispatch(addCommentThunk(comment));
     setCommentBody('');
     onClose();
-  }, [postId, username, commentBody, setCommentBody]);
+  }, [postId, username, commentBody, setCommentBody, dispatch, onClose]);
   return (
     <Grid container className={classes.comment}>
       <Grid item xs={12}>
