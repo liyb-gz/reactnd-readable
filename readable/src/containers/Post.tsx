@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useParams, useHistory, Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectPostState } from '../store/postSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectPostState, upvote, downvote } from '../store/postSlice';
 import {
   Typography,
   Divider,
@@ -31,14 +31,26 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {}
 
-const Post = (props: Props) => {
+const Post = () => {
   const classes = useStyles();
+
   const { postId } = useParams();
   const { push } = useHistory();
+
   const posts = useSelector(selectPostState);
   const allComments = useSelector(selectComments);
 
   const [isCommentWindowOpen, setIsCommentWindowOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const handleUpvote = useCallback(() => {
+    dispatch(upvote({ id: postId }));
+  }, [dispatch, postId]);
+
+  const handleDownvote = useCallback(() => {
+    dispatch(downvote({ id: postId }));
+  }, [dispatch, postId]);
 
   const post = posts[postId];
 
@@ -62,6 +74,8 @@ const Post = (props: Props) => {
         date={date}
         author={post.author}
         voteScore={post.voteScore}
+        onUpvote={handleUpvote}
+        onDownvote={handleDownvote}
         onEdit={() => push(`/post/${postId}/edit`)}
       />
       <Divider className={classes.divider} />

@@ -21,6 +21,8 @@ interface Props {
     | 'textPrimary'
     | 'textSecondary'
     | 'error';
+  onUpvote?: () => void;
+  onDownvote?: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
 }
@@ -31,6 +33,8 @@ const PostInfo = ({
   voteScore,
   color = 'textPrimary',
   spacing = 4,
+  onUpvote,
+  onDownvote,
   onEdit,
   onDelete,
 }: Props) => {
@@ -53,6 +57,24 @@ const PostInfo = ({
           {voteScore}
         </Typography>
       </Grid>
+      {onUpvote && (
+        <Grid item>
+          <Tooltip title="Upvote">
+            <IconButton onClick={onUpvote}>
+              <Icon.ThumbsUp size={16} />
+            </IconButton>
+          </Tooltip>
+        </Grid>
+      )}
+      {onDownvote && (
+        <Grid item>
+          <Tooltip title="Downvote">
+            <IconButton onClick={onDownvote}>
+              <Icon.ThumbsDown size={16} />
+            </IconButton>
+          </Tooltip>
+        </Grid>
+      )}
       {onEdit && (
         <Grid item>
           <Tooltip title="Edit">
