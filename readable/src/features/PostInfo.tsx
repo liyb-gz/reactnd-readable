@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography, GridSpacing } from '@material-ui/core';
+import { Grid, Typography, GridSpacing, IconButton } from '@material-ui/core';
 import * as Icon from 'react-feather';
 
 interface Props {
@@ -15,6 +15,8 @@ interface Props {
     | 'textPrimary'
     | 'textSecondary'
     | 'error';
+  onEdit?: () => void;
+  onDelete?: () => void;
 }
 
 const PostInfo = ({
@@ -23,10 +25,12 @@ const PostInfo = ({
   voteScore,
   color = 'textPrimary',
   spacing = 4,
+  onEdit,
+  onDelete,
 }: Props) => {
   const heartColor = voteScore > 0 ? 'red' : 'gray';
   return (
-    <Grid container spacing={spacing}>
+    <Grid container spacing={spacing} alignItems="center">
       <Grid item>
         <Typography variant="subtitle2" color={color}>
           {author}
@@ -43,6 +47,20 @@ const PostInfo = ({
           {voteScore}
         </Typography>
       </Grid>
+      {onEdit && (
+        <Grid item>
+          <IconButton onClick={onEdit}>
+            <Icon.Edit size={16} />
+          </IconButton>
+        </Grid>
+      )}
+      {onDelete && (
+        <Grid item>
+          <IconButton onClick={onDelete}>
+            <Icon.Trash2 size={16} />
+          </IconButton>
+        </Grid>
+      )}
     </Grid>
   );
 };

@@ -74,6 +74,7 @@ const App = () => {
           <Route path="/categories/:category" component={Home} />
           <Route path="/post/new" component={AddPost} />
           <Route path="/post/:postId" component={Post} exact />
+          <Route path="/post/:postId/edit" component={AddPost} />
           <Route path="/login" component={Login} />
           <Route component={NotFound} />
         </Switch>

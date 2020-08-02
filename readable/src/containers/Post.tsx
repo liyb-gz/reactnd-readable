@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectPostState } from '../store/postSlice';
 import {
@@ -28,6 +28,7 @@ interface Props {}
 const Post = (props: Props) => {
   const classes = useStyles();
   const { postId } = useParams();
+  const { push } = useHistory();
   const posts = useSelector(selectPostState);
   const allComments = useSelector(selectComments);
 
@@ -40,7 +41,12 @@ const Post = (props: Props) => {
     <div>
       <p>Post: {postId}</p>
       <Typography variant="h3">{post.title}</Typography>
-      <PostInfo date={date} author={post.author} voteScore={post.voteScore} />
+      <PostInfo
+        date={date}
+        author={post.author}
+        voteScore={post.voteScore}
+        onEdit={() => push(`/post/${postId}/edit`)}
+      />
       <Divider className={classes.divider} />
       <p>{post.body}</p>
       <Divider className={classes.divider} />

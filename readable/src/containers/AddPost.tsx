@@ -18,10 +18,10 @@ import { v4 as id } from 'uuid';
 import { selectCategories } from '../store/categorySlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { PostProps } from '../types/post';
-import { addPost } from '../store/postSlice';
+import { addPost, selectPostState } from '../store/postSlice';
 import { selectUsername } from '../store/userSlice';
 import { timestamp } from '../utils/helpers';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,33 +42,55 @@ const AddPost = () => {
   const smUp = useMediaQuery(theme.breakpoints.up('sm'));
 
   const { push } = useHistory();
+  const { postId } = useParams();
 
   const categories = useSelector(selectCategories);
   const author = useSelector(selectUsername);
+  const postState = useSelector(selectPostState);
 
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
-  const [category, setCategory] = useState('');
+  // Blank New Post
+  let post: PostProps = {
+    author: author || 'Unknown',
+    body: '',
+    title: '',
+    category: '',
+    commentCount: 0,
+    deleted: false,
+    id: id(),
+    timestamp: timestamp(),
+    voteScore: 1,
+  };
+
+  // Override the default post in edit mode, except author
+  if (postId) {
+    const postToEdit = postState[postId];
+    post = {
+      ...postToEdit,
+      author: post.author,
+    };
+  }
+
+  const pageTitle = postId ? 'Edit Post' : 'Add Post';
+
+  const [title, setTitle] = useState(post.title);
+  const [body, setBody] = useState(post.body);
+  const [category, setCategory] = useState(post.category);
 
   const dispatch = useDispatch();
   const handleSubmit = useCallback(() => {
-    const post: PostProps = {
-      author: author || 'Unknown',
+    const postToSubmit: PostProps = {
+      ...post,
       body,
       title,
       category,
-      commentCount: 0,
-      deleted: false,
-      id: id(),
       timestamp: timestamp(),
-      voteScore: 1,
     };
-    dispatch(addPost(post));
+    dispatch(addPost(postToSubmit));
     push('/');
-  }, [author, body, title, category, dispatch, push]);
+  }, [body, title, category, dispatch, push, post]);
   return (
     <div>
-      <Typography variant="h2">Add Post</Typography>
+      <Typography variant="h2">{pageTitle}</Typography>
       <Grid container>
         <Grid item xs={12}>
           <form className={classes.post}>
