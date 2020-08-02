@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectPostState } from '../store/postSlice';
 import {
@@ -33,10 +33,17 @@ const Post = (props: Props) => {
   const allComments = useSelector(selectComments);
 
   const post = posts[postId];
+
+  if (post === undefined) {
+    return <Redirect to="/404" />;
+  }
+
   const comments = allComments.filter(
     (comment) => comment.parentId === post.id
   );
+
   const date = format(new Date(post.timestamp), "d MMM y 'at' HH:mm");
+
   return (
     <div>
       <p>Post: {postId}</p>

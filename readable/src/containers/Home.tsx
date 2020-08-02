@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux';
 import { selectIsPostsShownAsCards } from '../store/uiSlice';
 import PostListGrid from '../features/PostListGrid';
 import { selectCategories } from '../store/categorySlice';
-import { useParams, Link, useHistory } from 'react-router-dom';
+import { useParams, Link, useHistory, Redirect } from 'react-router-dom';
 import TogglePostSortButton from '../features/TogglePostSortButton';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -61,9 +61,19 @@ const Home = () => {
   );
 
   const { category: categoryPath } = useParams();
+
+  const shouldRedirectTo404 =
+    categoryPath !== undefined &&
+    categories.find((c) => c.path === categoryPath) === undefined;
+
+  if (shouldRedirectTo404) {
+    return <Redirect to="/404" />;
+  }
+
   const pageTitle = categoryPath
     ? categories.find((c) => c.path === categoryPath)?.name
     : 'Home';
+
   return (
     <div>
       {categoryPath ? (

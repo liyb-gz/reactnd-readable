@@ -5,7 +5,7 @@ import {
   Theme,
   CssBaseline,
 } from '@material-ui/core';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Topbar from './layouts/Topbar';
 import Sidebar from './layouts/Sidebar';
@@ -76,7 +76,10 @@ const App = () => {
           <Route path="/post/:postId" component={Post} exact />
           <Route path="/post/:postId/edit" component={AddPost} />
           <Route path="/login" component={Login} />
-          <Route component={NotFound} />
+          <Route path="/404" component={NotFound} />
+          <Route>
+            <Redirect to="/404" />
+          </Route>
         </Switch>
       </Main>
     </div>
