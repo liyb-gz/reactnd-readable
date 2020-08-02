@@ -1,5 +1,11 @@
 import React from 'react';
-import { Grid, Typography, GridSpacing, IconButton } from '@material-ui/core';
+import {
+  Grid,
+  Typography,
+  GridSpacing,
+  IconButton,
+  Tooltip,
+} from '@material-ui/core';
 import * as Icon from 'react-feather';
 
 interface Props {
@@ -49,16 +55,20 @@ const PostInfo = ({
       </Grid>
       {onEdit && (
         <Grid item>
-          <IconButton onClick={onEdit}>
-            <Icon.Edit size={16} />
-          </IconButton>
+          <Tooltip title="Edit">
+            <IconButton onClick={onEdit}>
+              <Icon.Edit size={16} />
+            </IconButton>
+          </Tooltip>
         </Grid>
       )}
       {onDelete && (
         <Grid item>
-          <IconButton onClick={onDelete}>
-            <Icon.Trash2 size={16} />
-          </IconButton>
+          <Tooltip title="Delete">
+            <IconButton onClick={onDelete}>
+              <Icon.Trash2 size={16} />
+            </IconButton>
+          </Tooltip>
         </Grid>
       )}
     </Grid>
