@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   Grid,
   Button,
@@ -7,9 +7,16 @@ import {
   createStyles,
   TextField,
 } from '@material-ui/core';
+import { CommentProps } from '../types/comment';
+import { selectUsername } from '../store/userSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { v4 as id } from 'uuid';
+import { timestamp } from '../utils/helpers';
+import { addComment } from '../store/commentSlice';
 
 interface Props {
-  onCancel: () => void;
+  postId: string;
+  onClose: () => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -26,9 +33,26 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const AddComment = ({ onCancel }: Props) => {
-  const [newComment, setNewComment] = useState('');
+const AddComment = ({ postId, onClose }: Props) => {
   const classes = useStyles();
+  const [commentBody, setCommentBody] = useState('');
+  const username = useSelector(selectUsername);
+  const dispatch = useDispatch();
+  const handleSubmit = useCallback(() => {
+    const comment: CommentProps = {
+      author: username || 'Unknown',
+      parentId: postId,
+      body: commentBody,
+      id: id(),
+      timestamp: timestamp(),
+      deleted: false,
+      parentDeleted: false,
+      voteScore: 1,
+    };
+    dispatch(addComment(comment));
+    setCommentBody('');
+    onClose();
+  }, [postId, username, commentBody, setCommentBody]);
   return (
     <Grid container className={classes.comment}>
       <Grid item xs={12}>
@@ -41,9 +65,9 @@ const AddComment = ({ onCancel }: Props) => {
           fullWidth
           variant="outlined"
           className={classes.formControl}
-          value={newComment}
+          value={commentBody}
           onChange={(event) => {
-            setNewComment(event.target.value);
+            setCommentBody(event.target.value);
           }}
         />
       </Grid>
@@ -54,7 +78,8 @@ const AddComment = ({ onCancel }: Props) => {
               variant="contained"
               color="primary"
               className={classes.addCommentButton}
-              disabled={newComment.length === 0}
+              disabled={commentBody.length === 0}
+              onClick={handleSubmit}
             >
               Submit
             </Button>
@@ -64,7 +89,7 @@ const AddComment = ({ onCancel }: Props) => {
               variant="contained"
               color="default"
               className={classes.addCommentButton}
-              onClick={onCancel}
+              onClick={onClose}
             >
               Cancel
             </Button>

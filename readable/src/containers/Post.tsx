@@ -53,6 +53,8 @@ const Post = (props: Props) => {
     (comment) => comment.parentId === post.id
   );
 
+  comments.sort((a, b) => b.timestamp - a.timestamp);
+
   const date = format(new Date(post.timestamp), "d MMM y 'at' HH:mm");
 
   return (
@@ -83,7 +85,10 @@ const Post = (props: Props) => {
         </Button>
       </Collapse>
       <Collapse in={isCommentWindowOpen}>
-        <AddComment onCancel={() => setIsCommentWindowOpen(false)} />
+        <AddComment
+          postId={postId}
+          onClose={() => setIsCommentWindowOpen(false)}
+        />
       </Collapse>
     </div>
   );

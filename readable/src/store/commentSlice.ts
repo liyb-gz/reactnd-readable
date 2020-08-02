@@ -13,15 +13,19 @@ export const commentSlice = createSlice({
   initialState,
   reducers: {
     fetchComments: (
-      state: CommentState,
+      _state: CommentState,
       action: PayloadAction<CommentState>
     ) => {
       return action.payload;
     },
+    addComment: (state: CommentState, action: PayloadAction<CommentProps>) => {
+      const comment = action.payload;
+      state[comment.id] = comment;
+    },
   },
 });
 
-export const { fetchComments } = commentSlice.actions;
+export const { fetchComments, addComment } = commentSlice.actions;
 
 export const selectCommentState = (state: RootState) => state.comments;
 export const selectComments = (state: RootState) => {
