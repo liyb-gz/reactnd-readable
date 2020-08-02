@@ -6,6 +6,11 @@ export interface PostState {
   [id: string]: PostProps;
 }
 
+export interface AdjustPostCommentCountPayload {
+  id: string;
+  diff: number;
+}
+
 const initialState: PostState = {};
 
 export const postSlice = createSlice({
@@ -19,10 +24,21 @@ export const postSlice = createSlice({
       const post = action.payload;
       state[post.id] = post;
     },
+    adjustPostCommentCount: (
+      state: PostState,
+      action: PayloadAction<AdjustPostCommentCountPayload>
+    ) => {
+      const { id, diff } = action.payload;
+      state[id].commentCount += diff;
+    },
   },
 });
 
-export const { fetchPosts, addPost } = postSlice.actions;
+export const {
+  fetchPosts,
+  addPost,
+  adjustPostCommentCount,
+} = postSlice.actions;
 
 export const selectPostState = (state: RootState) => state.posts;
 export const selectPosts = (state: RootState) => {

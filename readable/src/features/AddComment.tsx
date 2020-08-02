@@ -12,7 +12,7 @@ import { selectUsername } from '../store/userSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { v4 as id } from 'uuid';
 import { timestamp } from '../utils/helpers';
-import { addComment } from '../store/commentSlice';
+import { addCommentThunk } from '../store/commentSlice';
 
 interface Props {
   postId: string;
@@ -49,7 +49,7 @@ const AddComment = ({ postId, onClose }: Props) => {
       parentDeleted: false,
       voteScore: 1,
     };
-    dispatch(addComment(comment));
+    dispatch(addCommentThunk(comment));
     setCommentBody('');
     onClose();
   }, [postId, username, commentBody, setCommentBody]);

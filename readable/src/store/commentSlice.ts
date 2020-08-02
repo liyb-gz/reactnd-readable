@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from './store';
+import { RootState, AppThunk } from './store';
 import { CommentProps } from '../types/comment';
+import { adjustPostCommentCount } from './postSlice';
 
 export interface CommentState {
   [id: string]: CommentProps;
@@ -26,6 +27,13 @@ export const commentSlice = createSlice({
 });
 
 export const { fetchComments, addComment } = commentSlice.actions;
+
+export const addCommentThunk = (comment: CommentProps): AppThunk => (
+  dispatch
+) => {
+  dispatch(addComment(comment));
+  dispatch(adjustPostCommentCount({ id: comment.parentId, diff: 1 }));
+};
 
 export const selectCommentState = (state: RootState) => state.comments;
 export const selectComments = (state: RootState) => {
