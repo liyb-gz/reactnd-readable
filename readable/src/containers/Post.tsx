@@ -18,6 +18,7 @@ import { format } from 'date-fns';
 import { selectComments } from '../store/commentSlice';
 import Comment from '../features/Comment';
 import PostInfo from '../features/PostInfo';
+import AddComment from '../features/AddComment';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,12 +29,6 @@ const useStyles = makeStyles((theme: Theme) =>
     addCommentButton: {
       marginTop: theme.spacing(2),
     },
-    comment: {
-      '& $formControl': {
-        marginTop: theme.spacing(2),
-      },
-    },
-    formControl: {},
   })
 );
 
@@ -45,7 +40,7 @@ const Post = (props: Props) => {
   const { push } = useHistory();
   const posts = useSelector(selectPostState);
   const allComments = useSelector(selectComments);
-  const [newComment, setNewComment] = useState('');
+
   const [isCommentWindowOpen, setIsCommentWindowOpen] = useState(false);
 
   const post = posts[postId];
@@ -88,47 +83,7 @@ const Post = (props: Props) => {
         </Button>
       </Collapse>
       <Collapse in={isCommentWindowOpen}>
-        <Grid container className={classes.comment}>
-          <Grid item xs={12}>
-            <TextField
-              label="Post"
-              required
-              placeholder="Leave your comment..."
-              multiline
-              rows={5}
-              fullWidth
-              variant="outlined"
-              className={classes.formControl}
-              value={newComment}
-              onChange={(event) => {
-                setNewComment(event.target.value);
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={2}>
-              <Grid item>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.addCommentButton}
-                >
-                  Submit
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  variant="contained"
-                  color="default"
-                  className={classes.addCommentButton}
-                  onClick={() => setIsCommentWindowOpen(false)}
-                >
-                  Cancel
-                </Button>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
+        <AddComment onCancel={() => setIsCommentWindowOpen(false)} />
       </Collapse>
     </div>
   );
