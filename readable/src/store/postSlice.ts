@@ -28,11 +28,14 @@ export const postSlice = createSlice({
       const post = action.payload;
       state[post.id] = post;
     },
-    upvote: (state: PostState, action: PayloadAction<PostVotePayload>) => {
+    upvotePost: (state: PostState, action: PayloadAction<PostVotePayload>) => {
       const { id } = action.payload;
       state[id].voteScore += 1;
     },
-    downvote: (state: PostState, action: PayloadAction<PostVotePayload>) => {
+    downvotePost: (
+      state: PostState,
+      action: PayloadAction<PostVotePayload>
+    ) => {
       const { id } = action.payload;
       state[id].voteScore -= 1;
     },
@@ -49,8 +52,8 @@ export const postSlice = createSlice({
 export const {
   fetchPosts,
   addPost,
-  upvote,
-  downvote,
+  upvotePost,
+  downvotePost,
   adjustPostCommentCount,
 } = postSlice.actions;
 

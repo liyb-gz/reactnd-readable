@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useParams, useHistory, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectPostState, upvote, downvote } from '../store/postSlice';
+import { selectPostState, upvotePost, downvotePost } from '../store/postSlice';
 import {
   Typography,
   Divider,
@@ -45,11 +45,11 @@ const Post = () => {
   const dispatch = useDispatch();
 
   const handleUpvote = useCallback(() => {
-    dispatch(upvote({ id: postId }));
+    dispatch(upvotePost({ id: postId }));
   }, [dispatch, postId]);
 
   const handleDownvote = useCallback(() => {
-    dispatch(downvote({ id: postId }));
+    dispatch(downvotePost({ id: postId }));
   }, [dispatch, postId]);
 
   const post = posts[postId];
