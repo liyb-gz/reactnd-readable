@@ -4,3 +4,7 @@ export const truncate = (input: string, length: number) => {
   }
   return input;
 };
+
+export const timestamp = () => {
+  return new Date().getTime();
+};

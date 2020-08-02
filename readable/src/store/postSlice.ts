@@ -12,13 +12,17 @@ export const postSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    fetchPosts: (state: PostState, action: PayloadAction<PostState>) => {
+    fetchPosts: (_state: PostState, action: PayloadAction<PostState>) => {
       return action.payload;
+    },
+    addPost: (state: PostState, action: PayloadAction<PostProps>) => {
+      const post = action.payload;
+      state[post.id] = post;
     },
   },
 });
 
-export const { fetchPosts } = postSlice.actions;
+export const { fetchPosts, addPost } = postSlice.actions;
 
 export const selectPostState = (state: RootState) => state.posts;
 export const selectPosts = (state: RootState) => {
