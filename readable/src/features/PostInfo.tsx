@@ -5,6 +5,8 @@ import {
   GridSpacing,
   IconButton,
   Tooltip,
+  useTheme,
+  useMediaQuery,
 } from '@material-ui/core';
 import * as Icon from 'react-feather';
 
@@ -32,15 +34,16 @@ const PostInfo = ({
   date,
   voteScore,
   color = 'textPrimary',
-  spacing = 4,
   onUpvote,
   onDownvote,
   onEdit,
   onDelete,
 }: Props) => {
   const heartColor = voteScore > 0 ? 'red' : 'gray';
+  const theme = useTheme();
+  const smUp = useMediaQuery(theme.breakpoints.up('sm'));
   return (
-    <Grid container spacing={spacing} alignItems="center">
+    <Grid container spacing={smUp ? 4 : 2} alignItems="center">
       <Grid item>
         <Typography variant="subtitle2" color={color}>
           {author}
