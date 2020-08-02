@@ -12,16 +12,21 @@ import { selectUsername } from '../store/userSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { v4 as id } from 'uuid';
 import { timestamp } from '../utils/helpers';
-import { addCommentThunk } from '../store/commentSlice';
+import {
+  addCommentThunk,
+  selectCommentState,
+  editCommentThunk,
+} from '../store/commentSlice';
 
 interface Props {
   postId: string;
+  commentId?: string;
   onClose: () => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    addCommentButton: {
+    button: {
       marginTop: theme.spacing(2),
     },
     comment: {
@@ -33,31 +38,54 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const AddComment = ({ postId, onClose }: Props) => {
+const AddComment = ({ postId, commentId, onClose }: Props) => {
   const classes = useStyles();
-  const [commentBody, setCommentBody] = useState('');
+  const commentState = useSelector(selectCommentState);
   const username = useSelector(selectUsername);
+
+  // Blank new comment
+  let comment: CommentProps = {
+    author: username || 'Unknown',
+    parentId: postId,
+    body: '',
+    id: id(),
+    timestamp: timestamp(),
+    deleted: false,
+    parentDeleted: false,
+    voteScore: 1,
+  };
+
+  if (commentId !== undefined) {
+    // Editing existing comment, overwrite initialComment object, except author
+    comment = {
+      ...commentState[commentId],
+      author: comment.author,
+    };
+  }
+  const [commentBody, setCommentBody] = useState(comment.body);
+
   const dispatch = useDispatch();
   const handleSubmit = useCallback(() => {
-    const comment: CommentProps = {
-      author: username || 'Unknown',
-      parentId: postId,
+    const commentToSubmit: CommentProps = {
+      ...comment,
       body: commentBody,
-      id: id(),
       timestamp: timestamp(),
-      deleted: false,
-      parentDeleted: false,
-      voteScore: 1,
     };
-    dispatch(addCommentThunk(comment));
+
+    if (commentId === undefined) {
+      dispatch(addCommentThunk(commentToSubmit));
+    } else {
+      dispatch(editCommentThunk(commentToSubmit));
+    }
+
     setCommentBody('');
     onClose();
-  }, [postId, username, commentBody, setCommentBody, dispatch, onClose]);
+  }, [commentBody, setCommentBody, dispatch, onClose, comment, commentId]);
   return (
     <Grid container className={classes.comment}>
       <Grid item xs={12}>
         <TextField
-          label="Comment"
+          label={commentId ? 'Edit comment' : 'Add comment'}
           required
           placeholder="Leave your comment..."
           multiline
@@ -78,7 +106,7 @@ const AddComment = ({ postId, onClose }: Props) => {
             <Button
               variant="contained"
               color="primary"
-              className={classes.addCommentButton}
+              className={classes.button}
               disabled={commentBody.length === 0}
               onClick={handleSubmit}
             >
@@ -89,7 +117,7 @@ const AddComment = ({ postId, onClose }: Props) => {
             <Button
               variant="contained"
               color="default"
-              className={classes.addCommentButton}
+              className={classes.button}
               onClick={onClose}
             >
               Cancel

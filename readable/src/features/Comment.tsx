@@ -79,7 +79,11 @@ const Comment = ({
         onClose={() => setIsEditOpen(false)}
       >
         <Paper className={classes.modalContent}>
-          <AddComment postId={parentId} onClose={() => setIsEditOpen(false)} />
+          <AddComment
+            postId={parentId}
+            commentId={id}
+            onClose={() => setIsEditOpen(false)}
+          />
         </Paper>
       </Modal>
     </div>

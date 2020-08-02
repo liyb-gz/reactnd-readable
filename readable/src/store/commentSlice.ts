@@ -58,6 +58,12 @@ export const addCommentThunk = (comment: CommentProps): AppThunk => (
   dispatch(adjustPostCommentCount({ id: comment.parentId, diff: 1 }));
 };
 
+export const editCommentThunk = (comment: CommentProps): AppThunk => (
+  dispatch
+) => {
+  dispatch(addComment(comment));
+};
+
 export const selectCommentState = (state: RootState) => state.comments;
 export const selectComments = (state: RootState) => {
   const keys = Object.keys(state.comments);
