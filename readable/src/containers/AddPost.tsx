@@ -86,8 +86,8 @@ const AddPost = () => {
       timestamp: timestamp(),
     };
     dispatch(addPost(postToSubmit));
-    push('/');
-  }, [body, title, category, dispatch, push, post]);
+    push(`/post/${postId}`);
+  }, [body, title, category, dispatch, push, post, postId]);
   return (
     <div>
       <Typography variant="h2">{pageTitle}</Typography>
@@ -147,17 +147,33 @@ const AddPost = () => {
                 setBody(event.target.value);
               }}
             />
-            <Button
-              color="primary"
-              variant="contained"
-              className={classes.formControl}
-              disabled={
-                title.length === 0 || body.length === 0 || category.length === 0
-              }
-              onClick={handleSubmit}
-            >
-              Submit
-            </Button>
+            <Grid container spacing={2}>
+              <Grid item>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  className={classes.formControl}
+                  disabled={
+                    title.length === 0 ||
+                    body.length === 0 ||
+                    category.length === 0
+                  }
+                  onClick={handleSubmit}
+                >
+                  Submit
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  variant="contained"
+                  color="default"
+                  className={classes.formControl}
+                  onClick={() => push(`/post/${postId}`)}
+                >
+                  Cancel
+                </Button>
+              </Grid>
+            </Grid>
           </form>
         </Grid>
       </Grid>
