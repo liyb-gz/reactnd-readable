@@ -63,31 +63,39 @@ const PostInfo = ({
   return (
     <Grid container spacing={smUp ? spacing : spacingSm} alignItems="center">
       <Grid item>
-        <Typography
-          variant="subtitle2"
-          color={color}
-          className={classes.author}
-        >
-          {author}
-        </Typography>
+        <Tooltip title="Author name">
+          <Typography
+            variant="subtitle2"
+            color={color}
+            className={classes.author}
+          >
+            {author}
+          </Typography>
+        </Tooltip>
       </Grid>
       <Grid item>
-        <Typography variant="subtitle2" color={color}>
-          {date}
-        </Typography>
+        <Tooltip title="Publish date and time">
+          <Typography variant="subtitle2" color={color}>
+            {date}
+          </Typography>
+        </Tooltip>
       </Grid>
       {commentCount !== undefined && (
         <Grid item>
-          <Typography variant="subtitle2" color={color}>
-            <Icon.MessageSquare size={16} /> {commentCount}
-          </Typography>
+          <Tooltip title="Number of comments">
+            <Typography variant="subtitle2" color={color}>
+              <Icon.MessageSquare size={16} /> {commentCount}
+            </Typography>
+          </Tooltip>
         </Grid>
       )}
       <Grid item>
-        <Typography variant="subtitle2" color={color}>
-          <Icon.Heart size={16} color={heartColor} fill={heartColor} />{' '}
-          {voteScore}
-        </Typography>
+        <Tooltip title="Vote score">
+          <Typography variant="subtitle2" color={color}>
+            <Icon.Heart size={16} color={heartColor} fill={heartColor} />{' '}
+            {voteScore}
+          </Typography>
+        </Tooltip>
       </Grid>
       {onUpvote !== undefined && (
         <Grid item>
