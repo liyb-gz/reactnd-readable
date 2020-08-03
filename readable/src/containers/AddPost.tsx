@@ -86,8 +86,8 @@ const AddPost = () => {
       timestamp: timestamp(),
     };
     dispatch(addPost(postToSubmit));
-    push(`/post/${postId}`);
-  }, [body, title, category, dispatch, push, post, postId]);
+    push(`/${category}/${postToSubmit.id}`);
+  }, [body, title, category, dispatch, push, post]);
   return (
     <div>
       <Typography variant="h2">{pageTitle}</Typography>
@@ -168,7 +168,10 @@ const AddPost = () => {
                   variant="contained"
                   color="default"
                   className={classes.formControl}
-                  onClick={() => push(`/post/${postId}`)}
+                  onClick={() => {
+                    const path = postId ? `/${category}/${postId}` : '/';
+                    push(path);
+                  }}
                 >
                   Cancel
                 </Button>

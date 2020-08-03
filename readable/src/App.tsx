@@ -80,12 +80,12 @@ const App = () => {
       <Main>
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/categories/:category" component={Home} />
-          <Route path="/post/new" component={AddPost} />
-          <Route path="/post/:postId" component={Post} exact />
-          <Route path="/post/:postId/edit" component={AddPost} />
+          <Route path="/new" component={AddPost} />
           <Route path="/login" component={Login} />
           <Route path="/404" component={NotFound} />
+          <Route path="/:category/:postId/edit" component={AddPost} />
+          <Route path="/:category/:postId" component={Post} />
+          <Route path="/:category" component={Home} exact />
           <Route>
             <Redirect to="/404" />
           </Route>

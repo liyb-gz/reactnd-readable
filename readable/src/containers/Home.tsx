@@ -98,7 +98,7 @@ const Home = () => {
                   color={isActive ? 'primary' : 'default'}
                   key={category.name}
                   onDelete={isActive ? goHome : undefined}
-                  to={`/categories/${category.path}`}
+                  to={`/${category.path}`}
                 />
               );
             })}

@@ -108,7 +108,7 @@ const SidebarMenu = () => {
                 key={category.name}
                 component={NavLink}
                 activeClassName={classes.active}
-                to={`/categories/${category.path}`}
+                to={`/${category.path}`}
               >
                 <ListItemText primary={category.name} />
               </ListItem>
@@ -120,7 +120,7 @@ const SidebarMenu = () => {
           onClick={closeMobileMenu}
           component={NavLink}
           activeClassName={classes.active}
-          to="/post/new"
+          to="/new"
         >
           <ListItemIcon>
             <Icon.FilePlus size={20} />

@@ -76,7 +76,7 @@ const Post = () => {
         voteScore={post.voteScore}
         onUpvote={handleUpvote}
         onDownvote={handleDownvote}
-        onEdit={() => push(`/post/${postId}/edit`)}
+        onEdit={() => push(`/${post.category}/${postId}/edit`)}
       />
       <Divider className={classes.divider} />
       <p>{post.body}</p>

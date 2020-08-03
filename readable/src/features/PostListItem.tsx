@@ -37,13 +37,14 @@ const PostListItem = ({
   body,
   author,
   voteScore,
+  category,
 }: PostProps) => {
   const { push } = useHistory();
   const classes = useStyles();
   const date = format(new Date(timestamp), "d MMM y 'at' HH:mm");
   const handleClick = useCallback(() => {
-    push(`/post/${id}`);
-  }, [id, push]);
+    push(`/${category}/${id}`);
+  }, [id, push, category]);
   return (
     <ListItem divider button onClick={handleClick}>
       <ListItemText

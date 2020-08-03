@@ -41,13 +41,14 @@ const PostCard = ({
   body,
   author,
   voteScore,
+  category,
 }: PostProps) => {
   const classes = useStyles();
   const { push } = useHistory();
   const date = format(new Date(timestamp), "d MMM y 'at' HH:mm");
   const handleClick = useCallback(() => {
-    push(`/post/${id}`);
-  }, [id, push]);
+    push(`/${category}/${id}`);
+  }, [id, push, category]);
   return (
     <Card className={classes.root}>
       <CardActionArea onClick={handleClick} className={classes.cardActionArea}>
