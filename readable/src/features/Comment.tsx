@@ -11,7 +11,11 @@ import { format } from 'date-fns';
 
 import PostInfo from './PostInfo';
 import { useDispatch } from 'react-redux';
-import { upvoteComment, downvoteComment } from '../store/commentSlice';
+import {
+  upvoteComment,
+  downvoteComment,
+  deleteCommentThunk,
+} from '../store/commentSlice';
 import AddComment from './AddComment';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -57,6 +61,10 @@ const Comment = ({
     dispatch(downvoteComment({ id }));
   }, [dispatch, id]);
 
+  const handleDelete = useCallback(() => {
+    dispatch(deleteCommentThunk({ id }));
+  }, [dispatch, id]);
+
   const date = format(new Date(timestamp), "d MMM y 'at' HH:mm");
   return (
     <div>
@@ -70,6 +78,7 @@ const Comment = ({
         color="textSecondary"
         onUpvote={handleUpvote}
         onDownvote={handleDownvote}
+        onDelete={handleDelete}
         onEdit={() => setIsEditOpen(true)}
       />
       <Modal

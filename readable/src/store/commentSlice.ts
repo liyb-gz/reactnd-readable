@@ -7,7 +7,7 @@ export interface CommentState {
   [id: string]: CommentProps;
 }
 
-export interface CommentVotePayload {
+export interface CommentId {
   id: string;
 }
 
@@ -27,19 +27,20 @@ export const commentSlice = createSlice({
       const comment = action.payload;
       state[comment.id] = comment;
     },
-    upvoteComment: (
-      state: CommentState,
-      action: PayloadAction<CommentVotePayload>
-    ) => {
+    upvoteComment: (state: CommentState, action: PayloadAction<CommentId>) => {
       const { id } = action.payload;
       state[id].voteScore += 1;
     },
     downvoteComment: (
       state: CommentState,
-      action: PayloadAction<CommentVotePayload>
+      action: PayloadAction<CommentId>
     ) => {
       const { id } = action.payload;
       state[id].voteScore -= 1;
+    },
+    deleteComment: (state: CommentState, action: PayloadAction<CommentId>) => {
+      const { id } = action.payload;
+      delete state[id];
     },
   },
 });
@@ -49,6 +50,7 @@ export const {
   addComment,
   upvoteComment,
   downvoteComment,
+  deleteComment,
 } = commentSlice.actions;
 
 export const addCommentThunk = (comment: CommentProps): AppThunk => (
@@ -62,6 +64,17 @@ export const editCommentThunk = (comment: CommentProps): AppThunk => (
   dispatch
 ) => {
   dispatch(addComment(comment));
+};
+
+export const deleteCommentThunk = (commentId: CommentId): AppThunk => (
+  dispatch,
+  getState
+) => {
+  const rootState = getState();
+  const { id } = commentId;
+  const { parentId } = rootState.comments[id];
+  dispatch(deleteComment({ id }));
+  dispatch(adjustPostCommentCount({ id: parentId, diff: -1 }));
 };
 
 export const selectCommentState = (state: RootState) => state.comments;
