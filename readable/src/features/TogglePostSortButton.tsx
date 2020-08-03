@@ -36,6 +36,11 @@ const TogglePostSortButton = ({ className }: Props) => {
           <Icon.Heart size={20} />
         </Tooltip>
       </ToggleButton>
+      <ToggleButton value={PostOrder.COMMENT_COUNT}>
+        <Tooltip title="Sort posts by number of comments">
+          <Icon.MessageSquare size={20} />
+        </Tooltip>
+      </ToggleButton>
       <ToggleButton value={PostOrder.DATE}>
         <Tooltip title="Sort posts by publish date">
           <Icon.Calendar size={20} />

@@ -4,6 +4,7 @@ import { RootState } from './store';
 export enum PostOrder {
   SCORE = 'score',
   DATE = 'date',
+  COMMENT_COUNT = 'commentCount',
 }
 
 interface UiState {

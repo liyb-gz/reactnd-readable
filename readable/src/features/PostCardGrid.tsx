@@ -30,6 +30,9 @@ const PostCardGrid = () => {
       break;
     case PostOrder.DATE:
       posts.sort((a, b) => b.timestamp - a.timestamp);
+      break;
+    case PostOrder.COMMENT_COUNT:
+      posts.sort((a, b) => b.commentCount - a.commentCount);
   }
   return (
     <Grid container spacing={3} className={classes.cards}>
