@@ -6,10 +6,9 @@ import {
   makeStyles,
   Theme,
   createStyles,
-  ButtonBase,
 } from '@material-ui/core';
 import { PostProps } from '../types/post';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { truncate } from '../utils/helpers';
 import { cardBodyLength, cardTitleLength } from '../utils/constants';
@@ -29,6 +28,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     titleLink: {
       transition: `color ${theme.transitions.duration.standard}ms`,
+      textDecoration: 'none',
+      color: theme.palette.text.primary,
       '&:hover': {
         color: theme.palette.primary.main,
       },
@@ -54,10 +55,6 @@ const PostListItem = ({
   const dispatch = useDispatch();
   const date = format(new Date(timestamp), "d MMM y 'at' HH:mm");
 
-  const handleClick = useCallback(() => {
-    push(`/${category}/${id}`);
-  }, [id, push, category]);
-
   const handleUpvote = useCallback(() => {
     dispatch(upvotePost({ id }));
   }, [dispatch, id]);
@@ -80,11 +77,11 @@ const PostListItem = ({
         classes={{ secondary: classes.body }}
         secondary={truncate(body, cardBodyLength)}
       >
-        <ButtonBase onClick={handleClick} className={classes.titleLink}>
+        <Link to={`/${category}/${id}`} className={classes.titleLink}>
           <Typography variant="h4" component="h4" className={classes.title}>
             {truncate(title, cardTitleLength)}
           </Typography>
-        </ButtonBase>
+        </Link>
         <PostInfo
           date={date}
           author={author}

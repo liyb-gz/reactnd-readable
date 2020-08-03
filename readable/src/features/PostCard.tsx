@@ -7,7 +7,6 @@ import {
   makeStyles,
   Theme,
   createStyles,
-  ButtonBase,
 } from '@material-ui/core';
 
 import { format } from 'date-fns';
@@ -18,6 +17,7 @@ import { cardTitleLength, cardBodyLength } from '../utils/constants';
 import PostInfo from './PostInfo';
 import { upvotePost, downvotePost, deletePostThunk } from '../store/postSlice';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,6 +29,8 @@ const useStyles = makeStyles((theme: Theme) =>
     titleLink: {
       transition: `color ${theme.transitions.duration.standard}ms`,
       textAlign: 'left',
+      textDecoration: 'none',
+      color: theme.palette.text.primary,
       '&:hover': {
         color: theme.palette.primary.main,
       },
@@ -54,10 +56,6 @@ const PostCard = ({
   const date = format(new Date(timestamp), "d MMM y 'at' HH:mm");
   const dispatch = useDispatch();
 
-  const handleClick = useCallback(() => {
-    push(`/${category}/${id}`);
-  }, [id, push, category]);
-
   const handleUpvote = useCallback(() => {
     dispatch(upvotePost({ id }));
   }, [dispatch, id]);
@@ -76,9 +74,9 @@ const PostCard = ({
 
   return (
     <Card className={classes.root}>
-      <ButtonBase onClick={handleClick} className={classes.titleLink}>
+      <Link to={`/${category}/${id}`} className={classes.titleLink}>
         <CardHeader title={truncate(title, cardTitleLength)} />
-      </ButtonBase>
+      </Link>
       <CardContent className={classes.cardContent}>
         <Typography component="p">{truncate(body, cardBodyLength)}</Typography>
       </CardContent>
