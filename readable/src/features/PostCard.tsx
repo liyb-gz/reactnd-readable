@@ -4,7 +4,6 @@ import {
   CardHeader,
   CardContent,
   Typography,
-  CardActionArea,
   makeStyles,
   Theme,
   createStyles,
@@ -17,6 +16,8 @@ import { PostProps } from '../types/post';
 import { truncate } from '../utils/helpers';
 import { cardTitleLength, cardBodyLength } from '../utils/constants';
 import PostInfo from './PostInfo';
+import { upvotePost, downvotePost } from '../store/postSlice';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,9 +52,20 @@ const PostCard = ({
   const classes = useStyles();
   const { push } = useHistory();
   const date = format(new Date(timestamp), "d MMM y 'at' HH:mm");
+  const dispatch = useDispatch();
+
   const handleClick = useCallback(() => {
     push(`/${category}/${id}`);
   }, [id, push, category]);
+
+  const handleUpvote = useCallback(() => {
+    dispatch(upvotePost({ id }));
+  }, [dispatch, id]);
+
+  const handleDownvote = useCallback(() => {
+    dispatch(downvotePost({ id }));
+  }, [dispatch, id]);
+
   return (
     <Card className={classes.root}>
       <ButtonBase onClick={handleClick} className={classes.titleLink}>
@@ -69,6 +81,8 @@ const PostCard = ({
           author={author}
           voteScore={voteScore}
           commentCount={commentCount}
+          onUpvote={handleUpvote}
+          onDownvote={handleDownvote}
         />
       </CardContent>
     </Card>
