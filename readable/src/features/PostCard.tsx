@@ -8,6 +8,7 @@ import {
   makeStyles,
   Theme,
   createStyles,
+  ButtonBase,
 } from '@material-ui/core';
 
 import { format } from 'date-fns';
@@ -21,12 +22,15 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       height: '100%',
-    },
-    cardActionArea: {
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'flex-start',
-      height: '100%',
+    },
+    titleLink: {
+      transition: `color ${theme.transitions.duration.standard}ms`,
+      textAlign: 'left',
+      '&:hover': {
+        color: theme.palette.primary.main,
+      },
     },
     cardContent: {
       flexGrow: 1,
@@ -41,6 +45,7 @@ const PostCard = ({
   body,
   author,
   voteScore,
+  commentCount,
   category,
 }: PostProps) => {
   const classes = useStyles();
@@ -51,17 +56,21 @@ const PostCard = ({
   }, [id, push, category]);
   return (
     <Card className={classes.root}>
-      <CardActionArea onClick={handleClick} className={classes.cardActionArea}>
+      <ButtonBase onClick={handleClick} className={classes.titleLink}>
         <CardHeader title={truncate(title, cardTitleLength)} />
-        <CardContent className={classes.cardContent}>
-          <Typography component="p">
-            {truncate(body, cardBodyLength)}
-          </Typography>
-        </CardContent>
-        <CardContent>
-          <PostInfo date={date} author={author} voteScore={voteScore} />
-        </CardContent>
-      </CardActionArea>
+      </ButtonBase>
+      <CardContent className={classes.cardContent}>
+        <Typography component="p">{truncate(body, cardBodyLength)}</Typography>
+      </CardContent>
+      <CardContent>
+        <PostInfo
+          condensed
+          date={date}
+          author={author}
+          voteScore={voteScore}
+          commentCount={commentCount}
+        />
+      </CardContent>
     </Card>
   );
 };

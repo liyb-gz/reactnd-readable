@@ -6,6 +6,7 @@ import {
   makeStyles,
   Theme,
   createStyles,
+  ButtonBase,
 } from '@material-ui/core';
 import { PostProps } from '../types/post';
 import { useHistory } from 'react-router-dom';
@@ -24,6 +25,12 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'inline-block',
       marginRight: theme.spacing(2),
     },
+    titleLink: {
+      transition: `color ${theme.transitions.duration.standard}ms`,
+      '&:hover': {
+        color: theme.palette.primary.main,
+      },
+    },
     time: {
       color: theme.palette.text.secondary,
     },
@@ -37,6 +44,7 @@ const PostListItem = ({
   body,
   author,
   voteScore,
+  commentCount,
   category,
 }: PostProps) => {
   const { push } = useHistory();
@@ -46,17 +54,20 @@ const PostListItem = ({
     push(`/${category}/${id}`);
   }, [id, push, category]);
   return (
-    <ListItem divider button onClick={handleClick}>
+    <ListItem divider>
       <ListItemText
         classes={{ secondary: classes.body }}
         secondary={truncate(body, cardBodyLength)}
       >
-        <Typography variant="h4" component="h4" className={classes.title}>
-          {truncate(title, cardTitleLength)}
-        </Typography>
+        <ButtonBase onClick={handleClick} className={classes.titleLink}>
+          <Typography variant="h4" component="h4" className={classes.title}>
+            {truncate(title, cardTitleLength)}
+          </Typography>
+        </ButtonBase>
         <PostInfo
           date={date}
           author={author}
+          commentCount={commentCount}
           voteScore={voteScore}
           color="textSecondary"
         />
