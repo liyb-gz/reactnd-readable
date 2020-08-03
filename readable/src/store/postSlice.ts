@@ -67,8 +67,7 @@ export const deletePostThunk = (postId: PostId): AppThunk => (dispatch) => {
 
 export const selectPostState = (state: RootState) => state.posts;
 export const selectPosts = (state: RootState) => {
-  const keys = Object.keys(state.posts);
-  return keys.map((key) => state.posts[key]);
+  return Object.values(state.posts);
 };
 
 export default postSlice.reducer;

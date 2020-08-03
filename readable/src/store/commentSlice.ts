@@ -92,8 +92,7 @@ export const deleteCommentThunk = (commentId: CommentId): AppThunk => (
 
 export const selectCommentState = (state: RootState) => state.comments;
 export const selectComments = (state: RootState) => {
-  const keys = Object.keys(state.comments);
-  return keys.map((key) => state.comments[key]);
+  return Object.values(state.comments);
 };
 
 export default commentSlice.reducer;
