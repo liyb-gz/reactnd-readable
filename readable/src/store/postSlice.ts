@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from './store';
+import { RootState, AppThunk } from './store';
 import { PostProps } from '../types/post';
+import { deleteCommentsOfPost } from './commentSlice';
 
 export interface PostState {
   [id: string]: PostProps;
@@ -11,7 +12,7 @@ export interface AdjustPostCommentCountPayload {
   diff: number;
 }
 
-export interface PostVotePayload {
+export interface PostId {
   id: string;
 }
 
@@ -28,16 +29,17 @@ export const postSlice = createSlice({
       const post = action.payload;
       state[post.id] = post;
     },
-    upvotePost: (state: PostState, action: PayloadAction<PostVotePayload>) => {
+    upvotePost: (state: PostState, action: PayloadAction<PostId>) => {
       const { id } = action.payload;
       state[id].voteScore += 1;
     },
-    downvotePost: (
-      state: PostState,
-      action: PayloadAction<PostVotePayload>
-    ) => {
+    downvotePost: (state: PostState, action: PayloadAction<PostId>) => {
       const { id } = action.payload;
       state[id].voteScore -= 1;
+    },
+    deletePost: (state: PostState, action: PayloadAction<PostId>) => {
+      const { id } = action.payload;
+      delete state[id];
     },
     adjustPostCommentCount: (
       state: PostState,
@@ -54,8 +56,14 @@ export const {
   addPost,
   upvotePost,
   downvotePost,
+  deletePost,
   adjustPostCommentCount,
 } = postSlice.actions;
+
+export const deletePostThunk = (postId: PostId): AppThunk => (dispatch) => {
+  dispatch(deletePost(postId));
+  dispatch(deleteCommentsOfPost(postId));
+};
 
 export const selectPostState = (state: RootState) => state.posts;
 export const selectPosts = (state: RootState) => {

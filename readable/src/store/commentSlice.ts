@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from './store';
 import { CommentProps } from '../types/comment';
-import { adjustPostCommentCount } from './postSlice';
+import { adjustPostCommentCount, PostId } from './postSlice';
 
 export interface CommentState {
   [id: string]: CommentProps;
@@ -42,6 +42,18 @@ export const commentSlice = createSlice({
       const { id } = action.payload;
       delete state[id];
     },
+    deleteCommentsOfPost: (
+      state: CommentState,
+      action: PayloadAction<PostId>
+    ) => {
+      const { id: postId } = action.payload;
+      const comments = Object.values(state);
+      comments.forEach((comment) => {
+        if (comment.parentId === postId) {
+          delete state[comment.id];
+        }
+      });
+    },
   },
 });
 
@@ -51,6 +63,7 @@ export const {
   upvoteComment,
   downvoteComment,
   deleteComment,
+  deleteCommentsOfPost,
 } = commentSlice.actions;
 
 export const addCommentThunk = (comment: CommentProps): AppThunk => (

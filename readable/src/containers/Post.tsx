@@ -1,7 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import { useParams, useHistory, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectPostState, upvotePost, downvotePost } from '../store/postSlice';
+import {
+  selectPostState,
+  upvotePost,
+  downvotePost,
+  deletePostThunk,
+} from '../store/postSlice';
 import {
   Typography,
   Divider,
@@ -52,6 +57,11 @@ const Post = () => {
     dispatch(downvotePost({ id: postId }));
   }, [dispatch, postId]);
 
+  const handleDelete = useCallback(() => {
+    dispatch(deletePostThunk({ id: postId }));
+    push('/');
+  }, [dispatch, postId, push]);
+
   const post = posts[postId];
 
   if (post === undefined) {
@@ -77,6 +87,7 @@ const Post = () => {
         voteScore={post.voteScore}
         onUpvote={handleUpvote}
         onDownvote={handleDownvote}
+        onDelete={handleDelete}
         onEdit={() => push(`/${post.category}/${postId}/edit`)}
       />
       <Divider className={classes.divider} />
