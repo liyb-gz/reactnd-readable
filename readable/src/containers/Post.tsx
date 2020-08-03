@@ -73,6 +73,7 @@ const Post = () => {
       <PostInfo
         date={date}
         author={post.author}
+        commentCount={post.commentCount}
         voteScore={post.voteScore}
         onUpvote={handleUpvote}
         onDownvote={handleDownvote}
