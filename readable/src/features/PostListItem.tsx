@@ -14,7 +14,7 @@ import { format } from 'date-fns';
 import { truncate } from '../utils/helpers';
 import { cardBodyLength, cardTitleLength } from '../utils/constants';
 import PostInfo from './PostInfo';
-import { upvotePost, downvotePost } from '../store/postSlice';
+import { upvotePost, downvotePost, deletePostThunk } from '../store/postSlice';
 import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -66,6 +66,14 @@ const PostListItem = ({
     dispatch(downvotePost({ id }));
   }, [dispatch, id]);
 
+  const handleEdit = useCallback(() => {
+    push(`/${category}/${id}/edit`);
+  }, [id, push, category]);
+
+  const handleDelete = useCallback(() => {
+    dispatch(deletePostThunk({ id }));
+  }, [dispatch, id]);
+
   return (
     <ListItem divider>
       <ListItemText
@@ -85,6 +93,8 @@ const PostListItem = ({
           color="textSecondary"
           onUpvote={handleUpvote}
           onDownvote={handleDownvote}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
         />
       </ListItemText>
     </ListItem>

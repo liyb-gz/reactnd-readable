@@ -16,7 +16,7 @@ import { PostProps } from '../types/post';
 import { truncate } from '../utils/helpers';
 import { cardTitleLength, cardBodyLength } from '../utils/constants';
 import PostInfo from './PostInfo';
-import { upvotePost, downvotePost } from '../store/postSlice';
+import { upvotePost, downvotePost, deletePostThunk } from '../store/postSlice';
 import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -66,6 +66,14 @@ const PostCard = ({
     dispatch(downvotePost({ id }));
   }, [dispatch, id]);
 
+  const handleEdit = useCallback(() => {
+    push(`/${category}/${id}/edit`);
+  }, [id, push, category]);
+
+  const handleDelete = useCallback(() => {
+    dispatch(deletePostThunk({ id }));
+  }, [dispatch, id]);
+
   return (
     <Card className={classes.root}>
       <ButtonBase onClick={handleClick} className={classes.titleLink}>
@@ -83,6 +91,8 @@ const PostCard = ({
           commentCount={commentCount}
           onUpvote={handleUpvote}
           onDownvote={handleDownvote}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
         />
       </CardContent>
     </Card>
