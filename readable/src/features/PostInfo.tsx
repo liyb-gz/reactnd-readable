@@ -8,12 +8,11 @@ import {
   useTheme,
   useMediaQuery,
   makeStyles,
-  Theme,
   createStyles,
 } from '@material-ui/core';
 import * as Icon from 'react-feather';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     author: {
       fontWeight: 'bold',

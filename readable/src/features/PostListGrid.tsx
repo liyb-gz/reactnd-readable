@@ -32,7 +32,7 @@ const PostListGrid = () => {
       posts.sort((a, b) => b.timestamp - a.timestamp);
       break;
     case PostOrder.COMMENT_COUNT:
-      posts.sort((a, b) => b.commentCount - a.commentCount);
+      posts.sort((a, b) => b.comments.length - a.comments.length);
   }
   return (
     <Grid container className={classes.root}>

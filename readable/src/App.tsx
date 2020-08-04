@@ -17,10 +17,8 @@ import AddPost from './containers/AddPost';
 import Logo from './features/Logo';
 import { useDispatch, useSelector } from 'react-redux';
 import { store } from './store/store';
-import { fetchPosts, fetchPostsThunk } from './store/postSlice';
+import { fetchPostsThunk } from './store/postSlice';
 import { fetchCategoriesThunk } from './store/categorySlice';
-import { testPosts, testComments } from './testData';
-import { fetchComments } from './store/commentSlice';
 import { setIsLoading, selectIsLoading } from './store/uiSlice';
 import Loading from './containers/Loading';
 import NotFound from './containers/NotFound';
@@ -55,7 +53,6 @@ const App = () => {
   const getInitialData = useCallback(() => {
     dispatch(fetchCategoriesThunk());
     dispatch(fetchPostsThunk());
-    dispatch(fetchComments(testComments));
     dispatch(setIsLoading(false));
   }, [dispatch]);
 

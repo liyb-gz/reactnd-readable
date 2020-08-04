@@ -23,3 +23,15 @@ export const getAllPosts = async (token: string) => {
     throw new Error('Fetch error');
   }
 };
+
+export const getCommentsForPost = async (token: string, postId: string) => {
+  const response = await fetch(`${url}/posts/${postId}/comments`, {
+    headers: { Authorization: token },
+  });
+  if (response.ok) {
+    const comments = await response.json();
+    return comments;
+  } else {
+    throw new Error('Fetch error');
+  }
+};

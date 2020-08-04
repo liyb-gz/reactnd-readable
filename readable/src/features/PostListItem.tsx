@@ -47,7 +47,7 @@ const PostListItem = ({
   body,
   author,
   voteScore,
-  commentCount,
+  comments,
   category,
 }: PostProps) => {
   const { push } = useHistory();
@@ -85,7 +85,7 @@ const PostListItem = ({
         <PostInfo
           date={date}
           author={author}
-          commentCount={commentCount}
+          commentCount={comments.length}
           voteScore={voteScore}
           color="textSecondary"
           onUpvote={handleUpvote}

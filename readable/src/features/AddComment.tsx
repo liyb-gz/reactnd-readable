@@ -50,8 +50,6 @@ const AddComment = ({ postId, commentId, onClose }: Props) => {
     body: '',
     id: id(),
     timestamp: timestamp(),
-    deleted: false,
-    parentDeleted: false,
     voteScore: 1,
   };
 

@@ -48,7 +48,7 @@ const PostCard = ({
   body,
   author,
   voteScore,
-  commentCount,
+  comments,
   category,
 }: PostProps) => {
   const classes = useStyles();
@@ -86,7 +86,7 @@ const PostCard = ({
           date={date}
           author={author}
           voteScore={voteScore}
-          commentCount={commentCount}
+          commentCount={comments.length}
           onUpvote={handleUpvote}
           onDownvote={handleDownvote}
           onEdit={handleEdit}

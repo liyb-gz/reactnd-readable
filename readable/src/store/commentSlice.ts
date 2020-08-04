@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from './store';
 import { CommentProps } from '../types/comment';
-import { adjustPostCommentCount, PostId } from './postSlice';
+import { PostId, addCommentToPost, deleteCommentFromPost } from './postSlice';
 
 export interface CommentState {
   [id: string]: CommentProps;
@@ -17,11 +17,12 @@ export const commentSlice = createSlice({
   name: 'comments',
   initialState,
   reducers: {
-    fetchComments: (
-      _state: CommentState,
-      action: PayloadAction<CommentState>
+    addComments: (
+      state: CommentState,
+      action: PayloadAction<CommentProps[]>
     ) => {
-      return action.payload;
+      const comments = action.payload;
+      comments.forEach((comment) => (state[comment.id] = comment));
     },
     addComment: (state: CommentState, action: PayloadAction<CommentProps>) => {
       const comment = action.payload;
@@ -58,7 +59,7 @@ export const commentSlice = createSlice({
 });
 
 export const {
-  fetchComments,
+  addComments,
   addComment,
   upvoteComment,
   downvoteComment,
@@ -66,11 +67,19 @@ export const {
   deleteCommentsOfPost,
 } = commentSlice.actions;
 
+export const addCommentsThunk = (comments: CommentProps[]): AppThunk => (
+  dispatch
+) => {
+  comments.forEach((comment) => dispatch(addCommentThunk(comment)));
+};
+
 export const addCommentThunk = (comment: CommentProps): AppThunk => (
   dispatch
 ) => {
   dispatch(addComment(comment));
-  dispatch(adjustPostCommentCount({ id: comment.parentId, diff: 1 }));
+  dispatch(
+    addCommentToPost({ postId: comment.parentId, commentId: comment.id })
+  );
 };
 
 export const editCommentThunk = (comment: CommentProps): AppThunk => (
@@ -87,7 +96,7 @@ export const deleteCommentThunk = (commentId: CommentId): AppThunk => (
   const { id } = commentId;
   const { parentId } = rootState.comments[id];
   dispatch(deleteComment({ id }));
-  dispatch(adjustPostCommentCount({ id: parentId, diff: -1 }));
+  dispatch(deleteCommentFromPost({ postId: parentId, commentId: id }));
 };
 
 export const selectCommentState = (state: RootState) => state.comments;
