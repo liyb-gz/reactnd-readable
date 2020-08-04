@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import Logo from '../features/Logo';
 import { useDispatch } from 'react-redux';
-import { login } from '../store/userSlice';
+import { loginThunk } from '../store/userSlice';
 
 interface Props {}
 
@@ -47,7 +47,7 @@ const Login = (props: Props) => {
   const [username, setUsername] = useState('');
   const dispatch = useDispatch();
   const handleClick = useCallback(() => {
-    dispatch(login({ username, token: 'testToken' }));
+    dispatch(loginThunk({ username, token: 'READABLE' }));
   }, [dispatch, username]);
   return (
     <div className={classes.root}>

@@ -15,7 +15,7 @@ import * as Icon from 'react-feather';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsMobileMenuOpen } from '../store/uiSlice';
 import { selectCategories } from '../store/categorySlice';
-import { logout, selectUsername } from '../store/userSlice';
+import { selectUsername, logoutThunk } from '../store/userSlice';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -63,7 +63,7 @@ const SidebarMenu = () => {
     setIsCategoryOpen((currentValue) => !currentValue);
   }, []);
   const handleLogout = useCallback(() => {
-    dispatch(logout());
+    dispatch(logoutThunk());
   }, [dispatch]);
   return (
     <div className={classes.drawerContainer}>
