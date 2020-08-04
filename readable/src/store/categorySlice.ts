@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from './store';
+import { RootState, AppThunk } from './store';
 import { CategoryProps } from '../types/category';
 
 export type CategoryState = CategoryProps[];
@@ -20,6 +20,21 @@ export const categorySlice = createSlice({
 });
 
 export const { fetchCategories } = categorySlice.actions;
+
+export const fetchCategoriesThunk = (): AppThunk => async (
+  dispatch,
+  getState
+) => {
+  const { users } = getState();
+  const token = users.token || 'TOKEN';
+  const response = await fetch('http://localhost:3001/categories', {
+    headers: { Authorization: token },
+  });
+  if (response.ok) {
+    const { categories } = await response.json();
+    dispatch(fetchCategories(categories));
+  }
+};
 
 export const selectCategories = (state: RootState) => {
   return state.categories;

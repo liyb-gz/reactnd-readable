@@ -18,8 +18,8 @@ import Logo from './features/Logo';
 import { useDispatch, useSelector } from 'react-redux';
 import { store } from './store/store';
 import { fetchPosts } from './store/postSlice';
-import { fetchCategories } from './store/categorySlice';
-import { testPosts, testCategories, testComments } from './testData';
+import { fetchCategoriesThunk } from './store/categorySlice';
+import { testPosts, testComments } from './testData';
 import { fetchComments } from './store/commentSlice';
 import { setIsLoading, selectIsLoading } from './store/uiSlice';
 import Loading from './containers/Loading';
@@ -53,7 +53,7 @@ const App = () => {
   }, [dispatch]);
 
   const getInitialData = useCallback(() => {
-    dispatch(fetchCategories(testCategories));
+    dispatch(fetchCategoriesThunk());
     dispatch(fetchPosts(testPosts));
     dispatch(fetchComments(testComments));
     dispatch(setIsLoading(false));
