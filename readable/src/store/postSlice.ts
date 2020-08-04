@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from './store';
 import { PostProps } from '../types/post';
 import { deleteCommentsOfPost } from './commentSlice';
+import { getAllPosts } from '../utils/api';
 
 export interface PostState {
   [id: string]: PostProps;
@@ -63,6 +64,19 @@ export const {
 export const deletePostThunk = (postId: PostId): AppThunk => (dispatch) => {
   dispatch(deletePost(postId));
   dispatch(deleteCommentsOfPost(postId));
+};
+
+export const fetchPostsThunk = (): AppThunk => async (dispatch, getState) => {
+  const { users } = getState();
+  const token = users.token!;
+  try {
+    const posts: PostProps[] = await getAllPosts(token);
+    const postState: PostState = {};
+    posts.forEach((post) => (postState[post.id] = post));
+    dispatch(fetchPosts(postState));
+  } catch (error) {
+    console.log('Error: ', error);
+  }
 };
 
 export const selectPostState = (state: RootState) => state.posts;

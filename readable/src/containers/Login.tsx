@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Login = (props: Props) => {
+const Login = () => {
   const classes = useStyles();
   const [username, setUsername] = useState('');
   const dispatch = useDispatch();

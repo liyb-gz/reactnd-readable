@@ -50,7 +50,7 @@ const AddPost = () => {
 
   // Blank New Post
   let post: PostProps = {
-    author: author || 'Unknown',
+    author: author!,
     body: '',
     title: '',
     category: '',

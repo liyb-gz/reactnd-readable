@@ -45,7 +45,7 @@ const AddComment = ({ postId, commentId, onClose }: Props) => {
 
   // Blank new comment
   let comment: CommentProps = {
-    author: username || 'Unknown',
+    author: username!,
     parentId: postId,
     body: '',
     id: id(),
