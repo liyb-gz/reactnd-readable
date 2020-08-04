@@ -51,9 +51,12 @@ const App = () => {
   }, [dispatch]);
 
   const getInitialData = useCallback(() => {
-    dispatch(fetchCategoriesThunk());
-    dispatch(fetchPostsThunk());
-    dispatch(setIsLoading(false));
+    Promise.all([
+      dispatch(fetchCategoriesThunk()),
+      dispatch(fetchPostsThunk()),
+    ]).then(() => {
+      dispatch(setIsLoading(false));
+    });
   }, [dispatch]);
 
   useEffect(() => {
