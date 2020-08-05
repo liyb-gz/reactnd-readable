@@ -12,9 +12,9 @@ import { format } from 'date-fns';
 import PostInfo from './PostInfo';
 import { useDispatch } from 'react-redux';
 import {
-  upvoteComment,
-  downvoteComment,
   deleteCommentThunk,
+  upvoteCommentThunk,
+  downvoteCommentThunk,
 } from '../store/commentSlice';
 import AddComment from './AddComment';
 
@@ -54,11 +54,11 @@ const Comment = ({
   const [isEditOpen, setIsEditOpen] = useState(false);
 
   const handleUpvote = useCallback(() => {
-    dispatch(upvoteComment({ id }));
+    dispatch(upvoteCommentThunk({ id }));
   }, [dispatch, id]);
 
   const handleDownvote = useCallback(() => {
-    dispatch(downvoteComment({ id }));
+    dispatch(downvoteCommentThunk({ id }));
   }, [dispatch, id]);
 
   const handleDelete = useCallback(() => {

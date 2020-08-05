@@ -39,7 +39,26 @@ export const getPostsForCategory = async (
   }
 };
 
-export const getCommentsForPost = async (token: string, postId: string) => {
+export const postComment = async (
+  commentId: string,
+  vote: 'upVote' | 'downVote',
+  token: string
+) => {
+  const response = await fetch(`${url}/comments/${commentId}`, {
+    headers: { Authorization: token, 'content-type': 'application/json' },
+    method: 'POST',
+    body: JSON.stringify({ option: vote }),
+  });
+  if (response.ok) {
+    const posts = await response.json();
+    console.log('response json', posts);
+    return posts;
+  } else {
+    throw new Error('Fetch error');
+  }
+};
+
+export const getCommentsForPost = async (postId: string, token: string) => {
   const response = await fetch(`${url}/posts/${postId}/comments`, {
     headers: { Authorization: token },
   });

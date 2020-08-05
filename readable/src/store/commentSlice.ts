@@ -2,7 +2,7 @@ import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState, AppThunk, AppDispatch } from './store';
 import { CommentProps, CommentFromAPI } from '../types/comment';
 import { PostId, addCommentToPost, deleteCommentFromPost } from './postSlice';
-import { getCommentsForPost } from '../utils/api';
+import { getCommentsForPost, postComment } from '../utils/api';
 
 export interface CommentState {
   [id: string]: CommentProps;
@@ -72,8 +72,8 @@ export const fetchCommentsForPostThunk = createAsyncThunk<
   const token = users.token!;
   try {
     const commentsFromAPI: CommentFromAPI[] = await getCommentsForPost(
-      token,
-      postId
+      postId,
+      token
     );
     commentsFromAPI.forEach((commentFromAPI) => {
       const { deleted, parentDeleted, ...comment } = commentFromAPI;
@@ -98,6 +98,40 @@ export const editCommentThunk = (comment: CommentProps): AppThunk => (
   dispatch
 ) => {
   dispatch(addComment(comment));
+};
+
+export const upvoteCommentThunk = (commentId: CommentId): AppThunk => async (
+  dispatch,
+  getState
+) => {
+  const { users } = getState();
+  const token = users.token!;
+
+  const { id } = commentId;
+  dispatch(upvoteComment(commentId));
+  try {
+    await postComment(id, 'upVote', token);
+  } catch (error) {
+    console.log('Error: ', error);
+    dispatch(downvoteComment(commentId));
+  }
+};
+
+export const downvoteCommentThunk = (commentId: CommentId): AppThunk => async (
+  dispatch,
+  getState
+) => {
+  const { users } = getState();
+  const token = users.token!;
+
+  const { id } = commentId;
+  dispatch(downvoteComment(commentId));
+  try {
+    await postComment(id, 'downVote', token);
+  } catch (error) {
+    console.log('Error: ', error);
+    dispatch(upvoteComment(commentId));
+  }
 };
 
 export const deleteCommentThunk = (commentId: CommentId): AppThunk => (
