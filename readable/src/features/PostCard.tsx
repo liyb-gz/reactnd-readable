@@ -15,7 +15,11 @@ import { PostProps } from '../types/post';
 import { truncate } from '../utils/helpers';
 import { cardTitleLength, cardBodyLength } from '../utils/constants';
 import PostInfo from './PostInfo';
-import { upvotePost, downvotePost, deletePostThunk } from '../store/postSlice';
+import {
+  deletePostThunk,
+  upvotePostThunk,
+  downvotePostThunk,
+} from '../store/postSlice';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -57,11 +61,11 @@ const PostCard = ({
   const dispatch = useDispatch();
 
   const handleUpvote = useCallback(() => {
-    dispatch(upvotePost({ id }));
+    dispatch(upvotePostThunk({ id }));
   }, [dispatch, id]);
 
   const handleDownvote = useCallback(() => {
-    dispatch(downvotePost({ id }));
+    dispatch(downvotePostThunk({ id }));
   }, [dispatch, id]);
 
   const handleEdit = useCallback(() => {

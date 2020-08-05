@@ -50,9 +50,45 @@ export const postComment = async (
     body: JSON.stringify({ option: vote }),
   });
   if (response.ok) {
-    const posts = await response.json();
-    console.log('response json', posts);
-    return posts;
+    const comment = await response.json();
+    return comment;
+  } else {
+    throw new Error('Fetch error');
+  }
+};
+
+export const putComment = async (
+  commentId: string,
+  body: string,
+  timestamp: number,
+  token: string
+) => {
+  const response = await fetch(`${url}/comments/${commentId}`, {
+    headers: { Authorization: token, 'content-type': 'application/json' },
+    method: 'PUT',
+    body: JSON.stringify({ body, timestamp }),
+  });
+  if (response.ok) {
+    const comment = await response.json();
+    return comment;
+  } else {
+    throw new Error('Fetch error');
+  }
+};
+
+export const postPost = async (
+  postId: string,
+  vote: 'upVote' | 'downVote',
+  token: string
+) => {
+  const response = await fetch(`${url}/posts/${postId}`, {
+    headers: { Authorization: token, 'content-type': 'application/json' },
+    method: 'POST',
+    body: JSON.stringify({ option: vote }),
+  });
+  if (response.ok) {
+    const post = await response.json();
+    return post;
   } else {
     throw new Error('Fetch error');
   }

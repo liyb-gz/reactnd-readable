@@ -3,9 +3,9 @@ import { useParams, useHistory, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   selectPostState,
-  upvotePost,
-  downvotePost,
   deletePostThunk,
+  upvotePostThunk,
+  downvotePostThunk,
 } from '../store/postSlice';
 import {
   Typography,
@@ -50,11 +50,11 @@ const Post = () => {
   const dispatch = useDispatch();
 
   const handleUpvote = useCallback(() => {
-    dispatch(upvotePost({ id: postId }));
+    dispatch(upvotePostThunk({ id: postId }));
   }, [dispatch, postId]);
 
   const handleDownvote = useCallback(() => {
-    dispatch(downvotePost({ id: postId }));
+    dispatch(downvotePostThunk({ id: postId }));
   }, [dispatch, postId]);
 
   const handleDelete = useCallback(() => {

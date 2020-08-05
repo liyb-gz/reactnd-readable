@@ -13,7 +13,11 @@ import { format } from 'date-fns';
 import { truncate } from '../utils/helpers';
 import { cardBodyLength, cardTitleLength } from '../utils/constants';
 import PostInfo from './PostInfo';
-import { upvotePost, downvotePost, deletePostThunk } from '../store/postSlice';
+import {
+  deletePostThunk,
+  upvotePostThunk,
+  downvotePostThunk,
+} from '../store/postSlice';
 import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -56,11 +60,11 @@ const PostListItem = ({
   const date = format(new Date(timestamp), "d MMM y 'at' HH:mm");
 
   const handleUpvote = useCallback(() => {
-    dispatch(upvotePost({ id }));
+    dispatch(upvotePostThunk({ id }));
   }, [dispatch, id]);
 
   const handleDownvote = useCallback(() => {
-    dispatch(downvotePost({ id }));
+    dispatch(downvotePostThunk({ id }));
   }, [dispatch, id]);
 
   const handleEdit = useCallback(() => {
