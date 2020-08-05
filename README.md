@@ -20,3 +20,7 @@ This repository includes the code for the backend API Server that is originally 
 ## API Server
 
 Information about the API server and how to use it can be found in its [README file](api-server/README.md).
+
+## Note
+
+This app is created using TypeScript. However, a not-so-pleasant previous experience told me that Udacity's review tool does not read .ts files. Thus I prepared a version in JavaScript in the folder `readable-js`. If you cannot review the .ts files, please go ahead and review the JavaScript version instead. Thanks!
