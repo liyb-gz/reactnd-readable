@@ -15,33 +15,6 @@ export const getCategories = async (token: string) => {
   }
 };
 
-export const getAllPosts = async (token: string) => {
-  const response = await fetch(`${url}/posts`, {
-    headers: { Authorization: token },
-  });
-  if (response.ok) {
-    const posts = await response.json();
-    return posts;
-  } else {
-    throw new Error('Fetch error');
-  }
-};
-
-export const getPostsForCategory = async (
-  categoryPath: string,
-  token: string
-) => {
-  const response = await fetch(`${url}/${categoryPath}/posts`, {
-    headers: { Authorization: token },
-  });
-  if (response.ok) {
-    const posts = await response.json();
-    return posts;
-  } else {
-    throw new Error('Fetch error');
-  }
-};
-
 export const postComment = async (
   commentId: string,
   vote: 'upVote' | 'downVote',
@@ -79,6 +52,60 @@ export const putComment = async (
   }
 };
 
+export const postNewComment = async (comment: CommentToAPI, token: string) => {
+  const response = await fetch(`${url}/comments/`, {
+    headers: { Authorization: token, 'content-type': 'application/json' },
+    method: 'POST',
+    body: JSON.stringify(comment),
+  });
+  if (response.ok) {
+    const comment = await response.json();
+    return comment;
+  } else {
+    throw new Error('Fetch error');
+  }
+};
+
+export const dropComment = async (commentId: string, token: string) => {
+  const response = await fetch(`${url}/comments/${commentId}`, {
+    headers: { Authorization: token, 'content-type': 'application/json' },
+    method: 'DELETE',
+  });
+  if (response.ok) {
+    const comment = await response.json();
+    return comment;
+  } else {
+    throw new Error('Fetch error');
+  }
+};
+
+export const getAllPosts = async (token: string) => {
+  const response = await fetch(`${url}/posts`, {
+    headers: { Authorization: token },
+  });
+  if (response.ok) {
+    const posts = await response.json();
+    return posts;
+  } else {
+    throw new Error('Fetch error');
+  }
+};
+
+export const getPostsForCategory = async (
+  categoryPath: string,
+  token: string
+) => {
+  const response = await fetch(`${url}/${categoryPath}/posts`, {
+    headers: { Authorization: token },
+  });
+  if (response.ok) {
+    const posts = await response.json();
+    return posts;
+  } else {
+    throw new Error('Fetch error');
+  }
+};
+
 export const postPost = async (
   postId: string,
   vote: 'upVote' | 'downVote',
@@ -92,20 +119,6 @@ export const postPost = async (
   if (response.ok) {
     const post = await response.json();
     return post;
-  } else {
-    throw new Error('Fetch error');
-  }
-};
-
-export const postNewComment = async (comment: CommentToAPI, token: string) => {
-  const response = await fetch(`${url}/comments/`, {
-    headers: { Authorization: token, 'content-type': 'application/json' },
-    method: 'POST',
-    body: JSON.stringify(comment),
-  });
-  if (response.ok) {
-    const comment = await response.json();
-    return comment;
   } else {
     throw new Error('Fetch error');
   }
@@ -135,6 +148,19 @@ export const postNewPost = async (post: PostToAPI, token: string) => {
     headers: { Authorization: token, 'content-type': 'application/json' },
     method: 'POST',
     body: JSON.stringify(post),
+  });
+  if (response.ok) {
+    const post = await response.json();
+    return post;
+  } else {
+    throw new Error('Fetch error');
+  }
+};
+
+export const dropPost = async (postId: string, token: string) => {
+  const response = await fetch(`${url}/posts/${postId}`, {
+    headers: { Authorization: token, 'content-type': 'application/json' },
+    method: 'DELETE',
   });
   if (response.ok) {
     const post = await response.json();

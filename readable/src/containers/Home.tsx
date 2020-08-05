@@ -54,9 +54,9 @@ const Home = () => {
   const dispatch = useDispatch();
 
   // Check if any new posts from the server
-  useEffect(() => {
-    dispatch(fetchPostsThunk(null));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchPostsThunk(null));
+  // }, [dispatch]);
 
   const { push } = useHistory();
   const goHome = useCallback(

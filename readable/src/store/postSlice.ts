@@ -1,16 +1,14 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState, AppThunk, AppDispatch } from './store';
 import { PostProps, PostFromAPI } from '../types/post';
-import {
-  deleteCommentsOfPost,
-  fetchCommentsForPostThunk,
-} from './commentSlice';
+import { fetchCommentsForPostThunk, deleteComment } from './commentSlice';
 import {
   getAllPosts,
   getPostsForCategory,
   postPost,
   putPost,
   postNewPost,
+  dropPost,
 } from '../utils/api';
 
 export interface PostState {
@@ -76,9 +74,24 @@ export const {
   deleteCommentFromPost,
 } = postSlice.actions;
 
-export const deletePostThunk = (postId: PostId): AppThunk => (dispatch) => {
+export const deletePostThunk = (postId: PostId): AppThunk => async (
+  dispatch,
+  getState
+) => {
+  const { users, posts } = getState();
+  const token = users.token!;
+
+  const { id } = postId;
+  const originalPost = posts[id];
+  const comments = originalPost.comments;
   dispatch(deletePost(postId));
-  dispatch(deleteCommentsOfPost(postId));
+  try {
+    await dropPost(id, token);
+    comments.forEach((commentId) => dispatch(deleteComment({ id: commentId })));
+  } catch (error) {
+    console.log('Error: ', error);
+    dispatch(addPost(originalPost));
+  }
 };
 
 export const fetchPostsThunk = createAsyncThunk<

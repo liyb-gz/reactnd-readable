@@ -7,6 +7,7 @@ import {
   postComment,
   putComment,
   postNewComment,
+  dropComment,
 } from '../utils/api';
 
 export interface CommentState {
@@ -42,18 +43,6 @@ export const commentSlice = createSlice({
       const { id } = action.payload;
       delete state[id];
     },
-    deleteCommentsOfPost: (
-      state: CommentState,
-      action: PayloadAction<PostId>
-    ) => {
-      const { id: postId } = action.payload;
-      const comments = Object.values(state);
-      comments.forEach((comment) => {
-        if (comment.parentId === postId) {
-          delete state[comment.id];
-        }
-      });
-    },
   },
 });
 
@@ -62,7 +51,6 @@ export const {
   upvoteComment,
   downvoteComment,
   deleteComment,
-  deleteCommentsOfPost,
 } = commentSlice.actions;
 
 export const fetchCommentsForPostThunk = createAsyncThunk<
@@ -167,15 +155,27 @@ export const downvoteCommentThunk = (commentId: CommentId): AppThunk => async (
   }
 };
 
-export const deleteCommentThunk = (commentId: CommentId): AppThunk => (
+export const deleteCommentThunk = (commentId: CommentId): AppThunk => async (
   dispatch,
   getState
 ) => {
-  const rootState = getState();
+  const { users, comments } = getState();
+  const token = users.token!;
+
   const { id } = commentId;
-  const { parentId } = rootState.comments[id];
+  const { parentId } = comments[id];
+
+  const originalComment = comments[id];
+
   dispatch(deleteComment({ id }));
   dispatch(deleteCommentFromPost({ postId: parentId, commentId: id }));
+  try {
+    await dropComment(id, token);
+  } catch (error) {
+    console.log('Error: ', error);
+    dispatch(addComment(originalComment));
+    dispatch(addCommentToPost({ postId: parentId, commentId: id }));
+  }
 };
 
 export const selectCommentState = (state: RootState) => state.comments;
