@@ -1,11 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from './store';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { RootState, AppThunk, AppDispatch } from './store';
 import { PostProps, PostFromAPI } from '../types/post';
 import {
   deleteCommentsOfPost,
   fetchCommentsForPostThunk,
 } from './commentSlice';
-import { getAllPosts } from '../utils/api';
+import { getAllPosts, getPostsForCategory } from '../utils/api';
 
 export interface PostState {
   [id: string]: PostProps;
@@ -75,11 +75,21 @@ export const deletePostThunk = (postId: PostId): AppThunk => (dispatch) => {
   dispatch(deleteCommentsOfPost(postId));
 };
 
-export const fetchPostsThunk = (): AppThunk => async (dispatch, getState) => {
+export const fetchPostsThunk = createAsyncThunk<
+  void,
+  string | null,
+  {
+    dispatch: AppDispatch;
+    state: RootState;
+  }
+>('posts/fetchPosts', async (categoryPath, { dispatch, getState }) => {
   const { users } = getState();
   const token = users.token!;
   try {
-    const postsFromAPI: PostFromAPI[] = await getAllPosts(token);
+    const postsFromAPI: PostFromAPI[] =
+      categoryPath === null
+        ? await getAllPosts(token)
+        : await getPostsForCategory(categoryPath, token);
 
     await Promise.all(
       postsFromAPI.map(async (postFromAPI) => {
@@ -102,7 +112,8 @@ export const fetchPostsThunk = (): AppThunk => async (dispatch, getState) => {
   } catch (error) {
     console.log('Error: ', error);
   }
-};
+  return;
+});
 
 export const selectPostState = (state: RootState) => state.posts;
 export const selectPosts = (state: RootState) => {

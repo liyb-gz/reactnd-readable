@@ -67,7 +67,7 @@ export const fetchCommentsForPostThunk = createAsyncThunk<
     dispatch: AppDispatch;
     state: RootState;
   }
->('comment/fetchCommentsForPost', async (postId, { dispatch, getState }) => {
+>('comments/fetchCommentsForPost', async (postId, { dispatch, getState }) => {
   const { users } = getState();
   const token = users.token!;
   try {
