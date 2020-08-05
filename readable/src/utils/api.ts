@@ -1,3 +1,5 @@
+import { PostToAPI } from '../types/post';
+
 const url = 'http://localhost:3001';
 
 export const getCategories = async (token: string) => {
@@ -104,6 +106,21 @@ export const putPost = async (
     headers: { Authorization: token, 'content-type': 'application/json' },
     method: 'PUT',
     body: JSON.stringify({ title, body, token }),
+  });
+  if (response.ok) {
+    const post = await response.json();
+    return post;
+  } else {
+    throw new Error('Fetch error');
+  }
+};
+
+export const postNewPost = async (post: PostToAPI, token: string) => {
+  console.log('in postNewPost API');
+  const response = await fetch(`${url}/posts/`, {
+    headers: { Authorization: token, 'content-type': 'application/json' },
+    method: 'POST',
+    body: JSON.stringify(post),
   });
   if (response.ok) {
     const post = await response.json();

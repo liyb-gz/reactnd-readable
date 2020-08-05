@@ -10,6 +10,7 @@ import {
   getPostsForCategory,
   postPost,
   putPost,
+  postNewPost,
 } from '../utils/api';
 
 export interface PostState {
@@ -169,6 +170,25 @@ export const editPostThunk = (post: PostProps): AppThunk => async (
   } catch (error) {
     console.log('Error: ', error);
     dispatch(addPost(orginalPost));
+  }
+};
+
+export const addPostThunk = (post: PostProps): AppThunk => async (
+  dispatch,
+  getState
+) => {
+  const { users } = getState();
+  const token = users.token!;
+
+  const { comments, voteScore, ...postToAPI } = post;
+  console.log('in addPostThunk');
+
+  dispatch(addPost(post));
+  try {
+    await postNewPost(postToAPI, token);
+  } catch (error) {
+    console.log('Error: ', error);
+    dispatch(deletePost({ id: post.id }));
   }
 };
 

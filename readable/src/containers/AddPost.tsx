@@ -18,7 +18,11 @@ import { v4 as id } from 'uuid';
 import { selectCategories } from '../store/categorySlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { PostProps } from '../types/post';
-import { addPost, selectPostState, editPostThunk } from '../store/postSlice';
+import {
+  selectPostState,
+  editPostThunk,
+  addPostThunk,
+} from '../store/postSlice';
 import { selectUsername } from '../store/userSlice';
 import { timestamp } from '../utils/helpers';
 import { useHistory, useParams } from 'react-router-dom';
@@ -88,7 +92,7 @@ const AddPost = () => {
         category,
         timestamp: timestamp(),
       };
-      dispatch(addPost(postToAdd));
+      dispatch(addPostThunk(postToAdd));
     }
     push(`/${category}/${post.id}`);
   }, [body, title, category, dispatch, push, post, postId]);

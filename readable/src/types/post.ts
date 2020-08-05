@@ -22,3 +22,13 @@ export interface PostFromAPI {
   deleted: boolean;
   commentCount: number;
 }
+
+// How we send a post to server
+export interface PostToAPI {
+  id: string;
+  title: string;
+  timestamp: number;
+  body: string;
+  author: string;
+  category: string;
+}
