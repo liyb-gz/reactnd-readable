@@ -53,7 +53,7 @@ const App = () => {
   const getInitialData = useCallback(() => {
     Promise.all([
       dispatch(fetchCategoriesThunk()),
-      dispatch(fetchPostsThunk()),
+      dispatch(fetchPostsThunk(null)),
     ]).then(() => {
       dispatch(setIsLoading(false));
     });

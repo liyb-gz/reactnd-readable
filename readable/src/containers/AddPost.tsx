@@ -18,7 +18,7 @@ import { v4 as id } from 'uuid';
 import { selectCategories } from '../store/categorySlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { PostProps } from '../types/post';
-import { addPost, selectPostState } from '../store/postSlice';
+import { addPost, selectPostState, editPostThunk } from '../store/postSlice';
 import { selectUsername } from '../store/userSlice';
 import { timestamp } from '../utils/helpers';
 import { useHistory, useParams } from 'react-router-dom';
@@ -60,13 +60,9 @@ const AddPost = () => {
     voteScore: 1,
   };
 
-  // Override the default post in edit mode, except author
+  // Override the default post in edit mode
   if (postId) {
-    const postToEdit = postState[postId];
-    post = {
-      ...postToEdit,
-      author: post.author,
-    };
+    post = postState[postId];
   }
 
   const pageTitle = postId ? 'Edit Post' : 'Add Post';
@@ -76,17 +72,26 @@ const AddPost = () => {
   const [category, setCategory] = useState(post.category);
 
   const dispatch = useDispatch();
-  const handleSubmit = useCallback(() => {
-    const postToSubmit: PostProps = {
-      ...post,
-      body,
-      title,
-      category,
-      timestamp: timestamp(),
-    };
-    dispatch(addPost(postToSubmit));
-    push(`/${category}/${postToSubmit.id}`);
-  }, [body, title, category, dispatch, push, post]);
+  const handleSubmit = useCallback(async () => {
+    if (postId) {
+      const postToEdit: PostProps = {
+        ...post,
+        body,
+        title,
+      };
+      dispatch(editPostThunk(postToEdit));
+    } else {
+      const postToAdd: PostProps = {
+        ...post,
+        body,
+        title,
+        category,
+        timestamp: timestamp(),
+      };
+      dispatch(addPost(postToAdd));
+    }
+    push(`/${category}/${post.id}`);
+  }, [body, title, category, dispatch, push, post, postId]);
   return (
     <div>
       <Typography variant="h2">{pageTitle}</Typography>
@@ -121,6 +126,7 @@ const AddPost = () => {
                       setCategory(event.target.value as string);
                     }}
                     label="Category"
+                    disabled={postId !== undefined}
                   >
                     {categories.map((c) => (
                       <MenuItem value={c.path} key={c.name}>

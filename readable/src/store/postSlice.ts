@@ -5,7 +5,12 @@ import {
   deleteCommentsOfPost,
   fetchCommentsForPostThunk,
 } from './commentSlice';
-import { getAllPosts, getPostsForCategory, postPost } from '../utils/api';
+import {
+  getAllPosts,
+  getPostsForCategory,
+  postPost,
+  putPost,
+} from '../utils/api';
 
 export interface PostState {
   [id: string]: PostProps;
@@ -146,6 +151,24 @@ export const downvotePostThunk = (postId: PostId): AppThunk => async (
   } catch (error) {
     console.log('Error: ', error);
     dispatch(upvotePost(postId));
+  }
+};
+
+export const editPostThunk = (post: PostProps): AppThunk => async (
+  dispatch,
+  getState
+) => {
+  const { users, posts } = getState();
+  const token = users.token!;
+
+  const { id: postId, title, body } = post;
+  const orginalPost = posts[postId];
+  dispatch(addPost(post));
+  try {
+    await putPost(postId, title, body, token);
+  } catch (error) {
+    console.log('Error: ', error);
+    dispatch(addPost(orginalPost));
   }
 };
 

@@ -94,6 +94,25 @@ export const postPost = async (
   }
 };
 
+export const putPost = async (
+  postId: string,
+  title: string,
+  body: string,
+  token: string
+) => {
+  const response = await fetch(`${url}/posts/${postId}`, {
+    headers: { Authorization: token, 'content-type': 'application/json' },
+    method: 'PUT',
+    body: JSON.stringify({ title, body, token }),
+  });
+  if (response.ok) {
+    const post = await response.json();
+    return post;
+  } else {
+    throw new Error('Fetch error');
+  }
+};
+
 export const getCommentsForPost = async (postId: string, token: string) => {
   const response = await fetch(`${url}/posts/${postId}/comments`, {
     headers: { Authorization: token },
