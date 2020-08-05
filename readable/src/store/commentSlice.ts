@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState, AppThunk, AppDispatch } from './store';
 import { CommentProps, CommentFromAPI } from '../types/comment';
-import { PostId, addCommentToPost, deleteCommentFromPost } from './postSlice';
+import { addCommentToPost, deleteCommentFromPost } from './postSlice';
 import {
   getCommentsForPost,
   postComment,

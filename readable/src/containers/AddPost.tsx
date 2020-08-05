@@ -25,7 +25,7 @@ import {
 } from '../store/postSlice';
 import { selectUsername } from '../store/userSlice';
 import { timestamp } from '../utils/helpers';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,6 +47,7 @@ const AddPost = () => {
 
   const { push } = useHistory();
   const { postId } = useParams();
+  const { state: categoryPathFromLoc } = useLocation();
 
   const categories = useSelector(selectCategories);
   const author = useSelector(selectUsername);
@@ -57,7 +58,7 @@ const AddPost = () => {
     author: author!,
     body: '',
     title: '',
-    category: '',
+    category: (categoryPathFromLoc as string) || '',
     comments: [],
     id: id(),
     timestamp: timestamp(),

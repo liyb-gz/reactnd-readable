@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import {
   Box,
   Chip,
@@ -7,17 +7,17 @@ import {
   createStyles,
   Grid,
   Typography,
+  Button,
 } from '@material-ui/core';
 
 import TogglePostDisplayButton from '../features/TogglePostDisplayButton';
 import PostCardGrid from '../features/PostCardGrid';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectIsPostsShownAsCards } from '../store/uiSlice';
 import PostListGrid from '../features/PostListGrid';
 import { selectCategories } from '../store/categorySlice';
 import { useParams, Link, useHistory, Redirect } from 'react-router-dom';
 import TogglePostSortButton from '../features/TogglePostSortButton';
-import { fetchPostsThunk } from '../store/postSlice';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme: Theme) =>
     buttonGroup: {
       marginRight: theme.spacing(2),
     },
+    addNewButton: {
+      marginTop: theme.spacing(2),
+    },
   })
 );
 
@@ -51,7 +54,7 @@ const Home = () => {
   const classes = useStyles();
   const isPostsShownAsCards = useSelector(selectIsPostsShownAsCards);
   const categories = useSelector(selectCategories);
-  const dispatch = useDispatch();
+  const { category: categoryPath } = useParams();
 
   // Check if any new posts from the server
   // useEffect(() => {
@@ -67,7 +70,13 @@ const Home = () => {
     [push]
   );
 
-  const { category: categoryPath } = useParams();
+  const handleAddNew = useCallback(() => {
+    const path = {
+      pathname: '/new',
+      state: categoryPath,
+    };
+    push(path);
+  }, [categoryPath, push]);
 
   const shouldRedirectTo404 =
     categoryPath !== undefined &&
@@ -117,6 +126,14 @@ const Home = () => {
         </Grid>
       </Grid>
       {isPostsShownAsCards ? <PostCardGrid /> : <PostListGrid />}
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.addNewButton}
+        onClick={handleAddNew}
+      >
+        Add new post
+      </Button>
     </div>
   );
 };
