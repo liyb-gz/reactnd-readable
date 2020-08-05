@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {
   Box,
   Chip,
@@ -11,12 +11,13 @@ import {
 
 import TogglePostDisplayButton from '../features/TogglePostDisplayButton';
 import PostCardGrid from '../features/PostCardGrid';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectIsPostsShownAsCards } from '../store/uiSlice';
 import PostListGrid from '../features/PostListGrid';
 import { selectCategories } from '../store/categorySlice';
 import { useParams, Link, useHistory, Redirect } from 'react-router-dom';
 import TogglePostSortButton from '../features/TogglePostSortButton';
+import { fetchPostsThunk } from '../store/postSlice';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,6 +51,12 @@ const Home = () => {
   const classes = useStyles();
   const isPostsShownAsCards = useSelector(selectIsPostsShownAsCards);
   const categories = useSelector(selectCategories);
+  const dispatch = useDispatch();
+
+  // Check if any new posts from the server
+  useEffect(() => {
+    dispatch(fetchPostsThunk(null));
+  }, [dispatch]);
 
   const { push } = useHistory();
   const goHome = useCallback(
