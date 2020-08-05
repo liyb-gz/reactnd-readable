@@ -15,12 +15,16 @@ import {
   Theme,
   Button,
   Collapse,
+  Breadcrumbs,
+  Link,
 } from '@material-ui/core';
 import { format } from 'date-fns';
-import { selectComments } from '../store/commentSlice';
+import { selectCommentState } from '../store/commentSlice';
 import Comment from '../features/Comment';
 import PostInfo from '../features/PostInfo';
 import AddComment from '../features/AddComment';
+import { Link as RouterLink } from 'react-router-dom';
+import { selectCategories } from '../store/categorySlice';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,11 +43,13 @@ interface Props {}
 const Post = () => {
   const classes = useStyles();
 
-  const { postId } = useParams();
+  const { postId, category: categoryPath } = useParams();
   const { push } = useHistory();
 
-  const posts = useSelector(selectPostState);
-  const allComments = useSelector(selectComments);
+  const postState = useSelector(selectPostState);
+  const commentState = useSelector(selectCommentState);
+  const categories = useSelector(selectCategories);
+  const category = categories.find((c) => c.path === categoryPath);
 
   const [isCommentWindowOpen, setIsCommentWindowOpen] = useState(false);
 
@@ -62,15 +68,15 @@ const Post = () => {
     push('/');
   }, [dispatch, postId, push]);
 
-  const post = posts[postId];
+  const post = postState[postId];
 
-  if (post === undefined) {
+  if (post === undefined || category === undefined) {
     return <Redirect to="/404" />;
   }
 
-  const comments = allComments.filter(
-    (comment) => comment.parentId === post.id
-  );
+  const categoryName = category.name;
+
+  const comments = post.comments.map((commentId) => commentState[commentId]);
 
   comments.sort((a, b) => b.timestamp - a.timestamp);
 
@@ -78,7 +84,22 @@ const Post = () => {
 
   return (
     <div>
-      <p>Post: {postId}</p>
+      <Breadcrumbs>
+        <Link color="inherit" component={RouterLink} to="/" variant="subtitle2">
+          Home
+        </Link>
+        <Link
+          color="inherit"
+          component={RouterLink}
+          to={`/${categoryPath}`}
+          variant="subtitle2"
+        >
+          {categoryName}
+        </Link>
+        <Typography color="textPrimary" variant="subtitle2">
+          Post
+        </Typography>
+      </Breadcrumbs>
       <Typography variant="h3">{post.title}</Typography>
       <PostInfo
         date={date}
@@ -88,7 +109,7 @@ const Post = () => {
         onUpvote={handleUpvote}
         onDownvote={handleDownvote}
         onDelete={handleDelete}
-        onEdit={() => push(`/${post.category}/${postId}/edit`)}
+        onEdit={() => push(`/${categoryPath}/${postId}/edit`)}
       />
       <Divider className={classes.divider} />
       <p>{post.body}</p>
