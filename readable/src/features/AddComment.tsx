@@ -55,10 +55,7 @@ const AddComment = ({ postId, commentId, onClose }: Props) => {
 
   if (commentId !== undefined) {
     // Editing existing comment, overwrite initialComment object, except author
-    comment = {
-      ...commentState[commentId],
-      author: comment.author,
-    };
+    comment = commentState[commentId];
   }
   const [commentBody, setCommentBody] = useState(comment.body);
 
