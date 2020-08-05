@@ -13,6 +13,8 @@ import {
   MenuItem,
   useMediaQuery,
   useTheme,
+  Breadcrumbs,
+  Link,
 } from '@material-ui/core';
 import { v4 as id } from 'uuid';
 import { selectCategories } from '../store/categorySlice';
@@ -25,7 +27,8 @@ import {
 } from '../store/postSlice';
 import { selectUsername } from '../store/userSlice';
 import { timestamp } from '../utils/helpers';
-import { useHistory, useParams, useLocation } from 'react-router-dom';
+import { useHistory, useParams, useLocation, Redirect } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,12 +49,13 @@ const AddPost = () => {
   const smUp = useMediaQuery(theme.breakpoints.up('sm'));
 
   const { push } = useHistory();
-  const { postId } = useParams();
-  const { state: categoryPathFromLoc } = useLocation();
+  const { postId, category: categoryPath } = useParams();
+  const { state: categoryPathFromLoc, pathname } = useLocation();
 
   const categories = useSelector(selectCategories);
   const author = useSelector(selectUsername);
   const postState = useSelector(selectPostState);
+  const categoryObj = categories.find((c) => c.path === categoryPath);
 
   // Blank New Post
   let post: PostProps = {
@@ -66,7 +70,7 @@ const AddPost = () => {
   };
 
   // Override the default post in edit mode
-  if (postId) {
+  if (postId && postState[postId] !== undefined) {
     post = postState[postId];
   }
 
@@ -97,8 +101,64 @@ const AddPost = () => {
     }
     push(`/${category}/${post.id}`);
   }, [body, title, category, dispatch, push, post, postId]);
+
+  // Check if the page contains all the info needed
+  let isEditPage: boolean;
+  let categoryName: string = '';
+  if (pathname.includes('edit')) {
+    isEditPage = true;
+
+    if (
+      categoryObj === undefined ||
+      postState[postId] === undefined ||
+      postState[postId].category !== categoryPath
+    ) {
+      return <Redirect to="/404" />;
+    } else {
+      categoryName = categoryObj.name;
+    }
+  } else {
+    isEditPage = false;
+  }
+
   return (
     <div>
+      <Breadcrumbs>
+        <Link color="inherit" component={RouterLink} to="/" variant="subtitle2">
+          Home
+        </Link>
+        {isEditPage && (
+          <Link
+            color="inherit"
+            component={RouterLink}
+            to={`/${categoryPath}`}
+            variant="subtitle2"
+          >
+            {categoryName}
+          </Link>
+        )}
+        {isEditPage && (
+          <Link
+            color="inherit"
+            component={RouterLink}
+            to={`/${categoryPath}/${postId}`}
+            variant="subtitle2"
+          >
+            Post
+          </Link>
+        )}
+        {isEditPage && (
+          <Typography color="textPrimary" variant="subtitle2">
+            Edit
+          </Typography>
+        )}
+        {!isEditPage && (
+          <Typography color="textPrimary" variant="subtitle2">
+            Add new post
+          </Typography>
+        )}
+        )}
+      </Breadcrumbs>
       <Typography variant="h2">{pageTitle}</Typography>
       <Grid container>
         <Grid item xs={12}>

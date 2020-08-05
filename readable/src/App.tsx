@@ -88,9 +88,8 @@ const App = () => {
       <Main>
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/new" component={AddPost} />
-          <Route path="/login" component={Login} />
-          <Route path="/404" component={NotFound} />
+          <Route path="/new" exact component={AddPost} />
+          <Route path="/404" exact component={NotFound} />
           <Route path="/:category/:postId/edit" component={AddPost} />
           <Route path="/:category/:postId" component={Post} />
           <Route path="/:category" component={Home} exact />

@@ -70,7 +70,11 @@ const Post = () => {
 
   const post = postState[postId];
 
-  if (post === undefined || category === undefined) {
+  if (
+    post === undefined ||
+    category === undefined ||
+    categoryPath !== post.category
+  ) {
     return <Redirect to="/404" />;
   }
 
