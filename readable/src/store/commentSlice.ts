@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from './store';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { RootState, AppThunk, AppDispatch } from './store';
 import { CommentProps, CommentFromAPI } from '../types/comment';
 import { PostId, addCommentToPost, deleteCommentFromPost } from './postSlice';
 import { getCommentsForPost } from '../utils/api';
@@ -60,10 +60,14 @@ export const {
   deleteCommentsOfPost,
 } = commentSlice.actions;
 
-export const fetchCommentsForPostThunk = (postId: string): AppThunk => async (
-  dispatch,
-  getState
-) => {
+export const fetchCommentsForPostThunk = createAsyncThunk<
+  void,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: RootState;
+  }
+>('comment/fetchCommentsForPost', async (postId, { dispatch, getState }) => {
   const { users } = getState();
   const token = users.token!;
   try {
@@ -79,7 +83,7 @@ export const fetchCommentsForPostThunk = (postId: string): AppThunk => async (
     console.log('Error: ', error);
   }
   return;
-};
+});
 
 export const addCommentThunk = (comment: CommentProps): AppThunk => (
   dispatch

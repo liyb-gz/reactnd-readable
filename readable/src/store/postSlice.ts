@@ -95,7 +95,7 @@ export const fetchPostsThunk = (): AppThunk => async (dispatch, getState) => {
 
         // Get comments if any
         if (postFromAPI.commentCount > 0) {
-          dispatch(fetchCommentsForPostThunk(post.id));
+          await dispatch(fetchCommentsForPostThunk(post.id));
         }
       })
     );
