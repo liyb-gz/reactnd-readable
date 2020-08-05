@@ -19,3 +19,12 @@ export interface CommentFromAPI {
   deleted: boolean;
   parentDeleted: boolean;
 }
+
+// How we send a comment to server
+export interface CommentToAPI {
+  id: string;
+  parentId: string;
+  timestamp: number;
+  body: string;
+  author: string;
+}

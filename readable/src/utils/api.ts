@@ -1,4 +1,5 @@
 import { PostToAPI } from '../types/post';
+import { CommentToAPI } from '../types/comment';
 
 const url = 'http://localhost:3001';
 
@@ -96,6 +97,20 @@ export const postPost = async (
   }
 };
 
+export const postNewComment = async (comment: CommentToAPI, token: string) => {
+  const response = await fetch(`${url}/comments/`, {
+    headers: { Authorization: token, 'content-type': 'application/json' },
+    method: 'POST',
+    body: JSON.stringify(comment),
+  });
+  if (response.ok) {
+    const comment = await response.json();
+    return comment;
+  } else {
+    throw new Error('Fetch error');
+  }
+};
+
 export const putPost = async (
   postId: string,
   title: string,
@@ -116,7 +131,6 @@ export const putPost = async (
 };
 
 export const postNewPost = async (post: PostToAPI, token: string) => {
-  console.log('in postNewPost API');
   const response = await fetch(`${url}/posts/`, {
     headers: { Authorization: token, 'content-type': 'application/json' },
     method: 'POST',
