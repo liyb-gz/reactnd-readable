@@ -31,7 +31,7 @@ const PostListGrid = () => {
     case PostOrder.DATE:
       posts.sort((a, b) => b.timestamp - a.timestamp);
       break;
-    case PostOrder.COMMENT_COUNT:
+    default:
       posts.sort((a, b) => b.comments.length - a.comments.length);
   }
   return (
